@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/java" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="lib" level="project" />
+    <orderEntry type="library" name="plugins-cache" level="project" />
+    <orderEntry type="library" name="provided" level="project" />
+    <orderEntry type="library" name="transformed-plugins" level="project" />
+    <orderEntry type="library" name="myConfluenceMacro-1.0.0-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="target" level="project" />
+    <orderEntry type="library" name="atlassian-bundled-plugins" level="project" />
+    <orderEntry type="library" name="lib24" level="project" />
+    <orderEntry type="library" name="lib30" level="project" />
+    <orderEntry type="library" name="test" level="project" />
+    <orderEntry type="library" name="bundle7" level="project" />
+    <orderEntry type="library" name="lib6" level="project" />
+    <orderEntry type="library" name="atlassian-bundled-plugins1" level="project" />
+    <orderEntry type="library" name="lib12" level="project" />
+    <orderEntry type="module" module-name="main" />
+    <orderEntry type="module" module-name="main" />
+    <orderEntry type="library" name="Maven: com.atlassian.sal:sal-api:2.0.17" level="project" />
+    <orderEntry type="library" name="Maven: junit:junit:4.10" level="project" />
+  </component>
+</module>
