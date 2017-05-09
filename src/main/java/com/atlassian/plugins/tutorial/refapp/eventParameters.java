@@ -7,9 +7,13 @@ import java.sql.*;
 public class eventParameters extends dbParameters{
     protected final String TABLENAME="confluence.ao_950dc3_tc_events";
 
+    protected String updateQuery="UPDATE " + TABLENAME +
+            " SET ALL_DAY=?, CREATED = ?, DESCRIPTION = ?, END = ?, LAST_MODIFIED = ?, LOCATION = ?, ORGANISER = ?, RECURRENCE_ID_TIMESTAMP = ?, RECURRENCE_RULE = ?, REMINDER_SETTING_ID = ?, SEQUENCE = ?, START = ?, SUB_CALENDAR_ID = ?, SUMMARY = ?, URL = ?, UTC_END = ?, UTC_START = ? WHERE VEVENT_UID = ?";
+
     protected String insertQuery="INSERT INTO " + TABLENAME +
             " (ALL_DAY, CREATED, DESCRIPTION, END, LAST_MODIFIED, LOCATION, ORGANISER, RECURRENCE_ID_TIMESTAMP, RECURRENCE_RULE, REMINDER_SETTING_ID, SEQUENCE, START, SUB_CALENDAR_ID, SUMMARY, URL, UTC_END, UTC_START, VEVENT_UID)" +
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
     protected String all_day=                null;
     protected String created=                null;
     protected String description=            null;
@@ -113,6 +117,7 @@ public class eventParameters extends dbParameters{
     public String getInsertQuery(){
         return insertQuery;
     }
+    public String getUpdateQuery() { return updateQuery;}
     public String getAll_day(){
         return all_day;
     }

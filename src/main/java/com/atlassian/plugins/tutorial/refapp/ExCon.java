@@ -12,7 +12,6 @@ import microsoft.exchange.webservices.data.credential.WebCredentials;
 import microsoft.exchange.webservices.data.search.CalendarView;
 import microsoft.exchange.webservices.data.search.FindItemsResults;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -22,13 +21,13 @@ import java.sql.*;
 import java.util.Date;
 
 
-public class ExCon{
+public class ExCon {
 
-    public void execute(String username, String password)throws ServletException{
+    public void execute(String username, String password)throws ServletException {
 
-        String fromOutlook = "Syncing failed";
-        //String username = map.get("Username");
-        //String password = map.get("Password");
+        String fromOutlook = "";
+
+
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
         // Log in with the respective Exchange account
@@ -80,15 +79,22 @@ public class ExCon{
 
         findResults.getItems();
 
-        LinkedList<Event> eventsList = new LinkedList<Event>();
+        //LinkedList<Event> eventsList = new LinkedList<Event>();
+
         eventParameters ep = new eventParameters();
         Connection myConn;
-        eventInserter ei = new eventInserter();
+
         try {
             ep.setUser("tcomkproj2017");
             ep.setPassword("tcomkproj2017");
             ep.setdbUrl("localhost:3306/confluence");
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
+            //Connection myTestConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datatest", ep.getUser(), ep.getPassword());
+            EventMapper em = new EventMapper();
+            em.tableMaker(myConn);
+            EventUpdater eu = new EventUpdater();
+            EventDeleter ed = new EventDeleter();
+
             for (Appointment appt : findResults.getItems()) {
                 // Make a new Event object to hold data of one appointment
                 // Loads appt
@@ -97,23 +103,16 @@ public class ExCon{
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-               /*  Make a new Event object to hold data of one appointment
-                Event event = new Event();*/
-                try {
 
-                    fromOutlook = appt.getSubject().toString();
+                fromOutlook = appt.getSubject();
 
-                    System.out.println(fromOutlook);
-                } catch (ServiceLocalException e) {
-                    e.printStackTrace();
-                }
                 ep.setAll_day("0");                //all day 1
                 try {
                     ep.setCreated(ConvertTime(appt.getDateTimeCreated(), true));   //created
-                } catch(ParseException x){
+                } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                    ep.setDescription("");                //description
+                ep.setDescription("");                //description
                 try {
                     ep.setEnd(ConvertTime(appt.getEnd(), true));   //End
                 } catch (ParseException x) {
@@ -121,7 +120,7 @@ public class ExCon{
                 }
                 try {
                     ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));   //Last_Modified
-                } catch (ParseException x){
+                } catch (ParseException x) {
                     x.printStackTrace();
                 }
                 ep.setLocation("");      //Location
@@ -149,15 +148,23 @@ public class ExCon{
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                // Get current time 
-                SimpleDateFormat test = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z--'"); 
-                test.setTimeZone(TimeZone.getTimeZone("UTC"));
-                Date date = new Date();
-                //Create a random unique value for each event that is in the calendar of Outlook
-                double random = Math.random() * 1000000000;
-                ep.setVevent_uid(test.format(date) + String.valueOf(random)  + "@130.229.188.219");//VEVENT UID
-                ei.insert(ep, myConn);
+
+                //work here
+                if (appt.getIsRecurring()) {
+                    Random random = new Random();
+                    int value = random.nextInt(999999999) + 1000000000;
+                    String c = String.valueOf(value);
+                    ep.setVevent_uid(c);
+                    ed.outlookIDs.add(c);
+                } else {
+                    ep.setVevent_uid(appt.getICalUid());
+                    ed.outlookIDs.add(appt.getICalUid());
+                }
+                // stop working
+
+                em.tableMap(ep.getVevent_uid(), myConn, eu, ep);
             }
+            ed.delete(myConn); //clean up database
             myConn.close();
         } catch (Exception exc) {
             exc.printStackTrace();
@@ -173,7 +180,7 @@ public class ExCon{
         }
 
     }
-    
+
     /* Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
        time -> time & date of the event
        localtime -> Determines whether or not the time is to be local or UTC
@@ -200,4 +207,5 @@ public class ExCon{
             return String.valueOf(date.getTime());
         }
     }
+    
 }

@@ -8,7 +8,6 @@ public class eventInserter {
     public void insert(eventParameters dbEventObject, Connection myConn) {
         if (dbEventObject.verifyParameters()) {
             try {
-                    Statement myStm = myConn.createStatement();
                     ps = myConn.prepareStatement(dbEventObject.getInsertQuery());
                     ps.setString(1,  dbEventObject.getAll_day());
                     ps.setString(2,  dbEventObject.getCreated());
