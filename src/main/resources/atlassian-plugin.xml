@@ -8,26 +8,20 @@
     </plugin-info>
 
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="myConfluenceMacro"/>
+    <resource type="i18n" name="i18n" location="AdminUI"/>
     
     <!-- add our web resources -->
-    <web-resource key="myConfluenceMacro-resources" name="myConfluenceMacro Web Resources">
+    <web-resource key="AdminUI-resources" name="AdminUI Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         
-        <resource type="download" name="myConfluenceMacro.css" location="/css/myConfluenceMacro.css"/>
-        <resource type="download" name="myConfluenceMacro.js" location="/js/myConfluenceMacro.js"/>
+        <resource type="download" name="AdminUI.css" location="/css/AdminUI.css"/>
+        <resource type="download" name="AdminUI.js" location="/js/AdminUI.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>myConfluenceMacro</context>
+        <context>AdminUI</context>
     </web-resource>
+    <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.MyPluginServlet" key="test">
+        <url-pattern>/test</url-pattern>
+    </servlet>
 
-    <xhtml-macro name="ExCon" class="com.atlassian.tutorial.macro.ExCon" key='ExCon-macro'>
-    	<description key="ExCon.macro.desc"/>
-    	<category name="formatting"/>
-    	<parameters>
-    		<parameter name="Username" type="string" />
-    		<parameter name="Password" type="string" />
-    	</parameters>
-    </xhtml-macro>
-    
 </atlassian-plugin>
