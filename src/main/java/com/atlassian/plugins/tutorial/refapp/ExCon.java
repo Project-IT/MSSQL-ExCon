@@ -26,7 +26,8 @@ public class ExCon {
     public void execute(String username, String password)throws ServletException {
 
         String fromOutlook = "";
-        
+        String vacationID=null;
+        String calendarID="c14a0c7a-0922-4acf-ae2b-c401243176f1";
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
         // Log in with the respective Exchange account
@@ -133,7 +134,16 @@ public class ExCon {
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
+                //ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
+
+                //SUB_CALENDAR_ID
+                //this is for different vacation event type
+                if (appt.getCategories().toString().equals("Orange category,")) // for Vacation events
+                {
+                    vacationID = SubCalendarID(calendarID, myConn , "Orange");}
+                else {
+                    vacationID = SubCalendarID(calendarID, myConn , "Blue");}
+                ep.setSub_calendar_id(vacationID);
                 ep.setSummary(fromOutlook);                //SUMMARY
                 ep.setUrl("NULL");           //URL
                 try {
@@ -205,5 +215,27 @@ public class ExCon {
             }
             return String.valueOf(date.getTime());
         }
+    }
+    private String SubCalendarID(String parentID , Connection myConn ,String color )throws SQLException{
+        String resultID= " ";
+        ResultSet myRs ;
+        //Create a statement
+        Statement myStm = myConn.createStatement();
+        // Get the child-ID of the parentID to crrosponding color
+        if ( color.equals("Orange")) {
+            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
+            while (myRs.next()) {
+                resultID = myRs.getString("ID");
+                return   resultID;
+            }
+        }
+        else
+        { myRs = myStm.executeQuery( "SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '"+parentID+"' AND COLOUR='subcalendar-blue';");
+            while (myRs.next()) {
+                resultID =myRs.getString("ID");
+                return   resultID;
+            }
+        }
+        return   resultID;
     }
 }
