@@ -28,6 +28,7 @@ public class ExCon {
         String fromOutlook = "";
         String vacationID=null;
         String calendarID="c14a0c7a-0922-4acf-ae2b-c401243176f1";
+
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
         // Log in with the respective Exchange account
