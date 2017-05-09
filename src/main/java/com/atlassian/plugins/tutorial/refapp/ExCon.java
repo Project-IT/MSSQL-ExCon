@@ -26,8 +26,7 @@ public class ExCon {
     public void execute(String username, String password)throws ServletException {
 
         String fromOutlook = "";
-
-
+        
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
         // Log in with the respective Exchange account
