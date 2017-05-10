@@ -218,7 +218,7 @@ public class ExCon {
         }
     }
     private String SubCalendarID(String parentID , Connection myConn ,String color )throws SQLException{
-        String resultID= " ";
+        String resultID= "c14a0c7a-0922-4acf-ae2b-c401243176f1";
         ResultSet myRs ;
         //Create a statement
         Statement myStm = myConn.createStatement();
