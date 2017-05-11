@@ -10,8 +10,8 @@
         <input type="text" id="name" name="name" class="text">
     </div>
     <div class="field-group">
-        <label for="age">Age:</label>
-        <input type="text" id="age" name="age" class="text">
+        <label for="age">Password:</label>
+        <input type="password" id="age" name="age" class="text">
     </div>
     <div class="field-group">
         <input type="submit" value="Save" class="button">
