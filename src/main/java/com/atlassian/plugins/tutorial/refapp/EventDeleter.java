@@ -11,9 +11,9 @@ public class EventDeleter {
 
     ArrayList outlookIDs = new ArrayList();
 
-    public void delete(Connection myConn) throws SQLException {
+    public void delete(String user, Connection myConn) throws SQLException {
 
-        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable");
+        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable WHERE Username='" + user+"'");
         ResultSet rs = ps.executeQuery();
 
         ArrayList tableIDs = new ArrayList();
@@ -21,6 +21,9 @@ public class EventDeleter {
         while (rs.next()) {
             tableIDs.add(rs.getString(1));
         }
+
+
+
 
         //Compare IDs from Outlook to the Database table - remove if matching
         for (Object outlookID : outlookIDs) {
@@ -32,6 +35,8 @@ public class EventDeleter {
         }
 
         Statement stmt = myConn.createStatement();
+
+
 
         //loop through remaining IDs - delete correct events
         if (tableIDs.size() != 0) {
