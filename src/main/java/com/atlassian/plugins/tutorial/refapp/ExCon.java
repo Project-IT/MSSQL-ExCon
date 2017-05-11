@@ -20,7 +20,6 @@ import java.text.SimpleDateFormat;
 import java.sql.*;
 import java.util.Date;
 
-
 public class ExCon {
 
     public void execute(String username, String password)throws ServletException {
