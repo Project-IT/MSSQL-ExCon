@@ -82,6 +82,8 @@ public class ExCon {
         //LinkedList<Event> eventsList = new LinkedList<Event>();
 
         eventParameters ep = new eventParameters();
+        InviteesInserter Ii=new InviteesInserter();
+        LastEventIdFinder Leif=new LastEventIdFinder();
         Connection myConn;
 
         try {
@@ -125,7 +127,7 @@ public class ExCon {
                 }
                 ep.setLocation("");      //Location
                 ep.setOrganiser("4028b8815babae10015babb056780000");//Organiser
-                ep.setRecurrence_id_timestamp(0);            //rec. Id Timestamp
+                ep.setRecurrence_id_timestamp(1);            //rec. Id Timestamp
                 ep.setRecurrence_rule("");            //Rec. Rule
                 ep.setReminder_setting_id("");           //Reminder_SETTING_ID
                 ep.setSequence("0");              //SEQUENCE
@@ -173,6 +175,7 @@ public class ExCon {
 
                 em.tableMap(ep.getVevent_uid(), myConn, eu, ep);
             }
+            Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
             ed.delete(myConn); //clean up database
             myConn.close();
         } catch (Exception exc) {
