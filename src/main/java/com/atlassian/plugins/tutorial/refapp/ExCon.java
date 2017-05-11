@@ -111,8 +111,6 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                fromOutlook = appt.getSubject();
-
                 //Sets allday
                 try {
                     if (appt.getIsAllDayEvent()) {
@@ -124,6 +122,8 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
+
+                //Time created
                 try {
                     ep.setCreated(ConvertTime(appt.getDateTimeCreated(), true));   //created
                 } catch (ParseException x) {
@@ -138,17 +138,29 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
+                //START
                 try {
-                    ep.setEnd(ConvertTime(appt.getEnd(), true));   //End
-                } catch (ParseException x) {
-                    x.printStackTrace();
-                }
-                try {
-                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));   //Last_Modified
+                    ep.setStart(ConvertTime(appt.getStart(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
 
+                //End time
+                try {
+                    ep.setEnd(ConvertTime(appt.getEnd(), true));
+                } catch (ParseException x) {
+                    x.printStackTrace();
+                }
+
+                //Last_Modified
+                try {
+                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
+                } catch (ParseException x) {
+                    x.printStackTrace();
+                }
+
+
+                //Location
                 try {
                     if (appt.getLocation() != null)
                         ep.setLocation(appt.getLocation());
@@ -168,16 +180,13 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                ep.setRecurrence_id_timestamp(0);            //rec. Id Timestamp
-                ep.setRecurrence_rule("");            //Rec. Rule
-                ep.setReminder_setting_id("");           //Reminder_SETTING_ID
-                ep.setSequence(appt.getAppointmentSequenceNumber().toString());              //SEQUENCE
+                ep.setRecurrence_id_timestamp(0);        //rec. Id Timestamp
+                ep.setRecurrence_rule(null);               //Rec. Rule
+                ep.setReminder_setting_id(null);           //Reminder_SETTING_ID
 
-                try {
-                    ep.setStart(ConvertTime(appt.getStart(), true));  //START
-                } catch (ParseException x) {
-                    x.printStackTrace();
-                }
+
+                //Sequence
+                ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
                 ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
 
@@ -189,18 +198,27 @@ public class ExCon {
                 } else {
                     vacationID = SubCalendarID(ParentID(calendarName,myConn), myConn, "Blue");
                 }
-0
+
                 //ep.setSub_calendar_id(vacationID);
                 ep.setSummary(fromOutlook);                //SUMMARY
                 ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
 
+                //Subject
+                ep.setSummary(appt.getSubject());
+
+                //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());
+
+                //URL END
                 try {
-                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));  //UTC_END
+                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
+
+                //URL START
                 try {
-                    ep.setUtc_start(ConvertTime(appt.getStart(), false));  //UTC_START
+                    ep.setUtc_start(ConvertTime(appt.getStart(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
