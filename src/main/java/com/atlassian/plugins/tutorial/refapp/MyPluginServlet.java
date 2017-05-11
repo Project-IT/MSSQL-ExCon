@@ -45,11 +45,11 @@ public class MyPluginServlet extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         String username = userManager.getRemoteUsername(request);
-        if (username == null || !userManager.isSystemAdmin(username))
+      /*  if (username == null || !userManager.isSystemAdmin(username))
         {
             redirectToLogin(request, response);
             return;
-        }
+        }*/
         Map<String, Object> context = new HashMap<String, Object>();
 
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
