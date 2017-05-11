@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class ExCon {
 
-    public void execute(String username, String password) throws ServletException {
+    public void execute(String username, String password, String calendarName) throws ServletException {
 
         String fromOutlook = "";
         String vacationID = null;
@@ -199,7 +199,7 @@ public class ExCon {
                     vacationID = SubCalendarID(ParentID(calendarName,myConn), myConn, "Blue");
                 }
 
-                //ep.setSub_calendar_id(vacationID);
+                ep.setSub_calendar_id(vacationID);
                 ep.setSummary(fromOutlook);                //SUMMARY
                 ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
 
