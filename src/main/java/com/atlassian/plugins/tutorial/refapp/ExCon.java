@@ -30,7 +30,6 @@ public class ExCon {
 
     public void execute(String username, String password)throws ServletException {
 
-        String fromOutlook = "";
         String vacationID=null;
         String calendarID="c14a0c7a-0922-4acf-ae2b-c401243176f1";
 
@@ -88,7 +87,6 @@ public class ExCon {
 
         findResults.getItems();
 
-        //LinkedList<Event> eventsList = new LinkedList<Event>();
 
         eventParameters ep = new eventParameters();
         Connection myConn;
@@ -98,7 +96,6 @@ public class ExCon {
             ep.setPassword("tcomkproj2017");
             ep.setdbUrl("localhost:3306/confluence");
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
-            //Connection myTestConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datatest", ep.getUser(), ep.getPassword());
             EventMapper em = new EventMapper();
             em.tableMaker(myConn);
             EventUpdater eu = new EventUpdater();
@@ -113,10 +110,7 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                fromOutlook = appt.getSubject();
-
                 //Sets allday
-
                 try {
                     if (appt.getIsAllDayEvent()) {
                         ep.setAll_day("1");
@@ -127,6 +121,8 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
+
+                //Time created
                 try {
                     ep.setCreated(ConvertTime(appt.getDateTimeCreated(), true));   //created
                 } catch (ParseException x) {
@@ -141,17 +137,23 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
+
+                //End time
                 try {
-                    ep.setEnd(ConvertTime(appt.getEnd(), true));   //End
-                } catch (ParseException x) {
-                    x.printStackTrace();
-                }
-                try {
-                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));   //Last_Modified
+                    ep.setEnd(ConvertTime(appt.getEnd(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
 
+                //Last_Modified
+                try {
+                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
+                } catch (ParseException x) {
+                    x.printStackTrace();
+                }
+
+
+                //Location
                 try {
                     if (appt.getLocation() != null)
                         ep.setLocation(appt.getLocation());
@@ -161,7 +163,6 @@ public class ExCon {
                 }
 
                 //Sets Organiser
-
                 try {
                     String wholeUser = currentUser.toString();
                     String [] split = wholeUser.split("key");
@@ -172,19 +173,21 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                ep.setRecurrence_id_timestamp(0);            //rec. Id Timestamp
+                ep.setRecurrence_id_timestamp(0);        //rec. Id Timestamp
+                ep.setRecurrence_rule(null);               //Rec. Rule
+                ep.setReminder_setting_id(null);           //Reminder_SETTING_ID
 
-                ep.setRecurrence_rule("");            //Rec. Rule
-                ep.setReminder_setting_id("");           //Reminder_SETTING_ID
 
-                ep.setSequence(appt.getAppointmentSequenceNumber().toString());              //SEQUENCE
+                //Sequence
+                ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
+
+                //START
                 try {
-                    ep.setStart(ConvertTime(appt.getStart(), true));  //START
+                    ep.setStart(ConvertTime(appt.getStart(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                //ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
 
                 //SUB_CALENDAR_ID
                 //this is for different vacation event type
@@ -195,16 +198,23 @@ public class ExCon {
                     vacationID = SubCalendarID(calendarID, myConn , "Blue");}
 
                 ep.setSub_calendar_id(vacationID);
-                ep.setSummary(fromOutlook);                //SUMMARY
-                ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
 
+                //Subject
+                ep.setSummary(appt.getSubject());
+
+                //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());
+
+                //URL END
                 try {
-                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));  //UTC_END
+                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
+
+                //URL START
                 try {
-                    ep.setUtc_start(ConvertTime(appt.getStart(), false));  //UTC_START
+                    ep.setUtc_start(ConvertTime(appt.getStart(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
