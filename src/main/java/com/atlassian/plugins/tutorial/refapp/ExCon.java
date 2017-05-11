@@ -12,6 +12,12 @@ import microsoft.exchange.webservices.data.credential.WebCredentials;
 import microsoft.exchange.webservices.data.search.CalendarView;
 import microsoft.exchange.webservices.data.search.FindItemsResults;
 
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
+import com.atlassian.confluence.user.ConfluenceUser;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -27,6 +33,9 @@ public class ExCon {
         String fromOutlook = "";
         String vacationID=null;
         String calendarID="c14a0c7a-0922-4acf-ae2b-c401243176f1";
+
+        ConfluenceUser currentUser;
+        currentUser = AuthenticatedUserThreadLocal.get();
 
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
@@ -106,13 +115,32 @@ public class ExCon {
 
                 fromOutlook = appt.getSubject();
 
-                ep.setAll_day("0");                //all day 1
+                //Sets allday
+
+                try {
+                    if (appt.getIsAllDayEvent()) {
+                        ep.setAll_day("1");
+                    } else {
+                        ep.setAll_day("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 try {
                     ep.setCreated(ConvertTime(appt.getDateTimeCreated(), true));   //created
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                ep.setDescription("");                //description
+
+                //set description
+                try {
+                    Document doc = Jsoup.parse(appt.getBody().toString());
+                    ep.setDescription(doc.body().text());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 try {
                     ep.setEnd(ConvertTime(appt.getEnd(), true));   //End
                 } catch (ParseException x) {
@@ -123,12 +151,34 @@ public class ExCon {
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                ep.setLocation("");      //Location
-                ep.setOrganiser("4028b8815babae10015babb056780000");//Organiser
+
+                try {
+                    if (appt.getLocation() != null)
+                        ep.setLocation(appt.getLocation());
+                    else ep.setLocation("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //Sets Organiser
+
+                try {
+                    String wholeUser = currentUser.toString();
+                    String [] split = wholeUser.split("key");
+                    wholeUser = split[1];
+                    String UserKey = wholeUser.replaceAll("=|}", "");
+                    ep.setOrganiser(UserKey);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
                 ep.setRecurrence_id_timestamp(0);            //rec. Id Timestamp
+
                 ep.setRecurrence_rule("");            //Rec. Rule
                 ep.setReminder_setting_id("");           //Reminder_SETTING_ID
-                ep.setSequence("0");              //SEQUENCE
+
+                ep.setSequence(appt.getAppointmentSequenceNumber().toString());              //SEQUENCE
+
                 try {
                     ep.setStart(ConvertTime(appt.getStart(), true));  //START
                 } catch (ParseException x) {
@@ -143,12 +193,13 @@ public class ExCon {
                     vacationID = SubCalendarID(calendarID, myConn , "Orange");}
                 else {
                     vacationID = SubCalendarID(calendarID, myConn , "Blue");}
+
                 ep.setSub_calendar_id(vacationID);
                 ep.setSummary(fromOutlook);                //SUMMARY
-                ep.setUrl("NULL");           //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
+
                 try {
-                    ep.setUtc_end(ConvertTime(appt.getStart(), false));  //UTC_END
-                    ep.setUtc_start(ConvertTime(appt.getStart(), false));  //UTC_START
+                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));  //UTC_END
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
