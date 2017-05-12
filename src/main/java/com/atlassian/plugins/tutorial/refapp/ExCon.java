@@ -261,7 +261,7 @@ public class ExCon {
             }
           
             Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
-            ed.delete(myConn); //clean up database
+            ed.delete(username,myConn); //clean up database
             myConn.close();
           
         } catch (Exception exc) {
