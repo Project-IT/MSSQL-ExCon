@@ -219,8 +219,8 @@ public class ExCon {
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
-                //SUB_CALENDAR_ID
-                //this is for different vacation event type
+                //SUB_CALENDAR_ID according to different color
+
                 if (appt.getCategories().toString().equals("Orange category,")) // for Vacation events
                 {
                     vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Orange");
@@ -331,19 +331,30 @@ public class ExCon {
         }
     }
 
+    /**
+     * SubCalendar is a different event types of a calendar as Event, Birthday, Travel  etc ..
+     * SubCalendarID method take parentID and return SubCalendarID according to a given color by sending SQL query
+     * @param parentID <- ParentId of the subCalendar
+     * @param myConn   <- Used to send SQL query
+     * @param color    <- To specify the required SubCalendarID
+     * @return resultID <- SubCalendarID
+     * @throws SQLException
+     */
     private String SubCalendarID(String parentID, Connection myConn, String color) throws SQLException {
         String resultID ="";
         ResultSet myRs;
         //Create a statement
         Statement myStm = myConn.createStatement();
-        // Get the child-ID of the parentID to corresponding color
+
         if (color.equals("Orange")) {
+            // SQL query that return  ID of given parentID and orange color
             myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
                 return resultID;
             }
         } else {
+            // SQL query that return  ID of given parentID and blue color
             myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
