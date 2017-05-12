@@ -181,6 +181,7 @@ public class ExCon {
                     x.printStackTrace();
                 }
 
+                //Last modified
                 try {
                     ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
                 } catch (ParseException x) {
@@ -208,15 +209,15 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                ep.setRecurrence_id_timestamp(0);        //rec. Id Timestamp
-                ep.setRecurrence_rule(null);               //Rec. Rule
-                ep.setReminder_setting_id(null);           //Reminder_SETTING_ID
-
+                //rec. Id Timestamp
+                ep.setRecurrence_id_timestamp(0);
+                //Rec. Rule
+                ep.setRecurrence_rule(null);
+                //Reminder_SETTING_ID
+                ep.setReminder_setting_id(null);
 
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
-
-               // ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
 
                 //SUB_CALENDAR_ID
                 //this is for different vacation event type
@@ -227,13 +228,14 @@ public class ExCon {
                     vacationID = SubCalendarID(ParentID(calendarName,myConn), myConn, "Blue");
                 }
 
+                //vacationID
                 ep.setSub_calendar_id(vacationID);
-                ep.setSummary(fromOutlook);                //SUMMARY
-                ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
-
+                //SUMMARY
+                ep.setSummary(fromOutlook);
+                //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());
                 //Subject
                 ep.setSummary(appt.getSubject());
-
                 //URL
                 ep.setUrl(appt.getMeetingWorkspaceUrl());
 
@@ -251,7 +253,7 @@ public class ExCon {
                     x.printStackTrace();
                 }
 
-                //work here
+                //If the event is of recurring type, make sure each part gets a unique id
                 if (appt.getIsRecurring()) {
                     Random random = new Random();
                     int value = random.nextInt(999999999) + 1000000000;
@@ -262,13 +264,16 @@ public class ExCon {
                     ep.setVevent_uid(appt.getICalUid());
                     ed.outlookIDs.add(appt.getICalUid());
                 }
-                // stop working
 
+                //call tablemapper to map events in outlook to events in confluence
                 em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep);
             }
-          
+
+            //LastEventIdFinder - set the correct organiser for the events retrieved
             Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
-            ed.delete(username,myConn); //clean up database
+            //clean up database
+            ed.delete(username,myConn);
+            //close connection
             myConn.close();
           
         } catch (Exception exc) {
@@ -302,6 +307,7 @@ public class ExCon {
      * localtime -> Determines whether or not the time is to be local or UTC
      *
     */
+
     private static String ConvertTime(Date time, boolean localtime) throws Exception {
 
         Date date = null;
