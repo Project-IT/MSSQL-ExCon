@@ -303,7 +303,14 @@ public class ExCon {
         }
         return resultID;
     }
-
+    
+    
+    /**
+     * ParentID is a function that makes a SQL query which retrieves a list with all PARENT IDs and then retreives the desired one based on CalendarName
+     * @param CalendarName <-- The desired calendar name
+     * @param myConn <-- the connection to SQL server
+     * @return ID <-- returns the desired Subcalendar_ID
+     */
     private static String ParentID(String CalendarName, Connection myConn) throws Exception {
 
         Statement State = myConn.createStatement();
