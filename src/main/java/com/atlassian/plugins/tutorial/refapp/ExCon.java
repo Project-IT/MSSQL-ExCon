@@ -12,6 +12,12 @@ import microsoft.exchange.webservices.data.credential.WebCredentials;
 import microsoft.exchange.webservices.data.search.CalendarView;
 import microsoft.exchange.webservices.data.search.FindItemsResults;
 
+import com.atlassian.confluence.user.AuthenticatedUserThreadLocal;
+import com.atlassian.confluence.user.ConfluenceUser;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -22,11 +28,13 @@ import java.util.Date;
 
 public class ExCon {
 
-    public void execute(String username, String password)throws ServletException {
+    public void execute(String username, String password, String calendarName) throws ServletException {
 
         String fromOutlook = "";
-        String vacationID=null;
-        String calendarID="c14a0c7a-0922-4acf-ae2b-c401243176f1";
+        String vacationID = null;
+
+        ConfluenceUser currentUser;
+        currentUser = AuthenticatedUserThreadLocal.get();
 
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
@@ -79,8 +87,6 @@ public class ExCon {
 
         findResults.getItems();
 
-        //LinkedList<Event> eventsList = new LinkedList<Event>();
-
         eventParameters ep = new eventParameters();
         InviteesInserter Ii=new InviteesInserter();
         LastEventIdFinder Leif=new LastEventIdFinder();
@@ -91,14 +97,15 @@ public class ExCon {
             ep.setPassword("tcomkproj2017");
             ep.setdbUrl("localhost:3306/confluence");
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
-            //Connection myTestConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/datatest", ep.getUser(), ep.getPassword());
+
             EventMapper em = new EventMapper();
             em.tableMaker(myConn);
+
             EventUpdater eu = new EventUpdater();
             EventDeleter ed = new EventDeleter();
 
             for (Appointment appt : findResults.getItems()) {
-                // Make a new Event object to hold data of one appointment
+
                 // Loads appt
                 try {
                     appt.load();
@@ -106,56 +113,113 @@ public class ExCon {
                     e.printStackTrace();
                 }
 
-                fromOutlook = appt.getSubject();
+                //Sets allday
+                try {
+                    if (appt.getIsAllDayEvent()) {
+                        ep.setAll_day("1");
+                    } else {
+                        ep.setAll_day("0");
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
 
-                ep.setAll_day("0");                //all day 1
+
+                //Time created
                 try {
                     ep.setCreated(ConvertTime(appt.getDateTimeCreated(), true));   //created
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                ep.setDescription("");                //description
+
+                //set description
                 try {
-                    ep.setEnd(ConvertTime(appt.getEnd(), true));   //End
+                    Document doc = Jsoup.parse(appt.getBody().toString());
+                    ep.setDescription(doc.body().text());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //START
+                try {
+                    ep.setStart(ConvertTime(appt.getStart(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
+
+                //End time
                 try {
-                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));   //Last_Modified
+                    ep.setEnd(ConvertTime(appt.getEnd(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                ep.setLocation("");      //Location
-                ep.setOrganiser("4028b8815babae10015babb056780000");//Organiser
-                ep.setRecurrence_id_timestamp(1);            //rec. Id Timestamp
-                ep.setRecurrence_rule("");            //Rec. Rule
-                ep.setReminder_setting_id("");           //Reminder_SETTING_ID
-                ep.setSequence("0");              //SEQUENCE
+
                 try {
-                    ep.setStart(ConvertTime(appt.getStart(), true));  //START
+                    ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
-                //ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
+
+
+                //Location
+                try {
+                    if (appt.getLocation() != null)
+                        ep.setLocation(appt.getLocation());
+                    else ep.setLocation("");
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                //Sets Organiser
+                try {
+                    String wholeUser = currentUser.toString();
+                    String[] split = wholeUser.split("key");
+                    wholeUser = split[1];
+                    String UserKey = wholeUser.replaceAll("=|}", "");
+                    ep.setOrganiser(UserKey);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                ep.setRecurrence_id_timestamp(0);        //rec. Id Timestamp
+                ep.setRecurrence_rule(null);               //Rec. Rule
+                ep.setReminder_setting_id(null);           //Reminder_SETTING_ID
+
+
+                //Sequence
+                ep.setSequence(appt.getAppointmentSequenceNumber().toString());
+
+               // ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
 
                 //SUB_CALENDAR_ID
                 //this is for different vacation event type
                 if (appt.getCategories().toString().equals("Orange category,")) // for Vacation events
                 {
-                    vacationID = SubCalendarID(calendarID, myConn , "Orange");}
-                else {
-                    vacationID = SubCalendarID(calendarID, myConn , "Blue");}
+                    vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Orange");
+                } else {
+                    vacationID = SubCalendarID(ParentID(calendarName,myConn), myConn, "Blue");
+                }
+
                 ep.setSub_calendar_id(vacationID);
                 ep.setSummary(fromOutlook);                //SUMMARY
-                ep.setUrl("NULL");           //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
+
+                //Subject
+                ep.setSummary(appt.getSubject());
+
+                //URL
+                ep.setUrl(appt.getMeetingWorkspaceUrl());
+
+                //URL END
                 try {
-                    ep.setUtc_end(ConvertTime(appt.getStart(), false));  //UTC_END
-                    ep.setUtc_start(ConvertTime(appt.getStart(), false));  //UTC_START
+                    ep.setUtc_end(ConvertTime(appt.getEnd(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
+
+                //URL START
                 try {
-                    ep.setUtc_start(ConvertTime(appt.getStart(), false));  //UTC_START
+                    ep.setUtc_start(ConvertTime(appt.getStart(), false));
                 } catch (ParseException x) {
                     x.printStackTrace();
                 }
@@ -173,11 +237,13 @@ public class ExCon {
                 }
                 // stop working
 
-                em.tableMap(ep.getVevent_uid(), myConn, eu, ep);
+                em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep);
             }
+          
             Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
             ed.delete(myConn); //clean up database
             myConn.close();
+          
         } catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -219,26 +285,41 @@ public class ExCon {
             return String.valueOf(date.getTime());
         }
     }
-    private String SubCalendarID(String parentID , Connection myConn ,String color )throws SQLException{
-        String resultID= "c14a0c7a-0922-4acf-ae2b-c401243176f1";
-        ResultSet myRs ;
+
+    private String SubCalendarID(String parentID, Connection myConn, String color) throws SQLException {
+        String resultID ="";
+        ResultSet myRs;
         //Create a statement
         Statement myStm = myConn.createStatement();
-        // Get the child-ID of the parentID to crrosponding color
-        if ( color.equals("Orange")) {
+        // Get the child-ID of the parentID to corresponding color
+        if (color.equals("Orange")) {
             myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
-            while (myRs.next()) {
+            if (myRs.next()) {
                 resultID = myRs.getString("ID");
-                return   resultID;
+                return resultID;
+            }
+        } else {
+            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
+            if (myRs.next()) {
+                resultID = myRs.getString("ID");
+                return resultID;
             }
         }
-        else
-        { myRs = myStm.executeQuery( "SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '"+parentID+"' AND COLOUR='subcalendar-blue';");
-            while (myRs.next()) {
-                resultID =myRs.getString("ID");
-                return   resultID;
+        return resultID;
+    }
+
+    private static String ParentID(String CalendarName, Connection myConn) throws Exception {
+
+        Statement State = myConn.createStatement();
+        String ID = null;
+        ResultSet Res = State.executeQuery
+                ("SELECT tc.NAME as calendar_name, tc.ID as ID FROM AO_950DC3_TC_SUBCALS tc JOIN user_mapping um ON um.user_key = tc.CREATOR WHERE tc.SPACE_KEY IS NOT NULL;");
+
+        while (Res.next()) {
+            if (Res.getString("calendar_name").equals(CalendarName)) {
+                ID = Res.getString("ID");
             }
         }
-        return   resultID;
+        return ID;
     }
 }

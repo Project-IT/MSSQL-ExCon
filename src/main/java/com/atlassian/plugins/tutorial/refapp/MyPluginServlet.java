@@ -64,8 +64,14 @@ public class MyPluginServlet extends HttpServlet
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".age", noAge);
         }
 
+        if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID") == null){
+            String noParentID = "Enter an age here.";
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".ParentID", noParentID);
+        }
+
         context.put("name", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name"));
         context.put("age", pluginSettings.get(PLUGIN_STORAGE_KEY + ".age"));
+        context.put("ParentID", pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID"));
         response.setContentType("text/html;charset=utf-8");
         templateRenderer.render("admin.vm", response.getWriter());
 
@@ -79,7 +85,7 @@ public class MyPluginServlet extends HttpServlet
         pluginSettings.put(PLUGIN_STORAGE_KEY + ".age", req.getParameter("age"));
 
         */ExCon exCon=new ExCon();
-        exCon.execute(req.getParameter("name"), req.getParameter("age"));
+        exCon.execute(req.getParameter("name"), req.getParameter("age"), req.getParameter("ParentID"));
         response.sendRedirect("test");
     }
 

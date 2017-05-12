@@ -17,14 +17,12 @@ public class EventMapper {
     //Create Database table if it doesn't exist already
     public void tableMaker(Connection myConn) throws SQLException {
         Statement stmt = myConn.createStatement();
-        String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + "(ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048))";
+        String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + "(ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
         stmt.execute(sqlCreate);
     }
 
-
-    //
-    public boolean tableMap(String OutlookUID, Connection myConn, EventUpdater eu, eventParameters ep) throws SQLException {
-
+    @SuppressWarnings("Duplicates")
+    public boolean tableMap(String OutlookUID, String user, Connection myConn, EventUpdater eu, eventParameters ep) throws SQLException {
 
         // Get current time
         SimpleDateFormat test = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z--'");
@@ -33,26 +31,53 @@ public class EventMapper {
 
         //Create a random unique value for each event that is in the calendar of Outlook
         Random random = new Random();
-        int value = random.nextInt(999999999)+1000000000;
+        int value = random.nextInt(999999999) + 1000000000;
         String NewVEVUID = (test.format(date) + String.valueOf(value) + "@130.229.172.50"); //VEVENT UID (after "@" put the IP of the host)
 
+        //prepare for query
         eventInserter ei = new eventInserter();
         Statement stmt = myConn.createStatement();
         PreparedStatement preparedStatement;
 
-        preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
-        ResultSet myRs = preparedStatement.executeQuery();
+        PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluence.outlookuidtable WHERE Username='" + user + "'");
+        ResultSet userRs = userStatement.executeQuery();
 
-        if (!myRs.next()) {
-            String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "')";
-            ep.setVevent_uid(NewVEVUID);
-            stmt.executeUpdate(sqlInsert);
-            ei.insert(ep, myConn);
-            return false;
-        } else {
-            ep.setVevent_uid(myRs.getString("ConfluenceUID"));
-            eu.update(ep, myConn);
+        if (userRs.next()) { //user is known
+
+            preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
+            ResultSet myRs = preparedStatement.executeQuery();
+
+            if (!myRs.next()) {
+                String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "')";
+                ep.setVevent_uid(NewVEVUID);
+                stmt.executeUpdate(sqlInsert);
+                ei.insert(ep, myConn);
+                return false;
+            } else {
+                ep.setVevent_uid(myRs.getString("ConfluenceUID"));
+                eu.update(ep, myConn);
+            }
+            return true;
+
+        } else { //map new user to database table
+            PreparedStatement nameMapStatement = myConn.prepareStatement("INSERT INTO OutlookUIDTable" + "(Username)" + "VALUES ('" + user + "')");
+            nameMapStatement.execute();
+
+            PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
+            ResultSet userMapRS = newUserMap.executeQuery();
+
+            //noinspection Duplicates
+            if (!userMapRS.next()) {
+                String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "')";
+                ep.setVevent_uid(NewVEVUID);
+                stmt.executeUpdate(sqlInsert);
+                ei.insert(ep, myConn);
+                return false;
+            } else {
+                ep.setVevent_uid(userMapRS.getString("ConfluenceUID"));
+                eu.update(ep, myConn);
+            }
+            return true;
         }
-        return true;
     }
 }
