@@ -188,7 +188,7 @@ public class ExCon {
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
-                ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
+               // ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
 
                 //SUB_CALENDAR_ID
                 //this is for different vacation event type
