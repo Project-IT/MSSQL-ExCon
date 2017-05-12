@@ -50,9 +50,9 @@ public class ExCon {
 
     public void execute(String username, String password, String calendarName) throws ServletException {
 
+        //declarations
         String fromOutlook = "";
         String vacationID = null;
-
         ConfluenceUser currentUser;
         currentUser = AuthenticatedUserThreadLocal.get();
 
@@ -112,6 +112,7 @@ public class ExCon {
         LastEventIdFinder Leif=new LastEventIdFinder();
         Connection myConn;
 
+        //sets database user
         try {
             ep.setUser("tcomkproj2017");
             ep.setPassword("tcomkproj2017");
@@ -123,6 +124,12 @@ public class ExCon {
 
             EventUpdater eu = new EventUpdater();
             EventDeleter ed = new EventDeleter();
+
+
+            /*
+             * This for loop is the biggest part of our program.
+             * It runs at nlog(n) time.
+             */
 
             for (Appointment appt : findResults.getItems()) {
 
@@ -269,8 +276,14 @@ public class ExCon {
         }
     }
 
+    /**
+     * @implements IAutodiscoverRedirectionUrl
+     *
+     * Function provided by Exchange Web-Service which is distributed under the MIT License.
+     * For more information refer to their user-manual.
+     *
+     */
 
-    // Simple error checker for the URI
     static class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
         public boolean autodiscoverRedirectionUrlValidationCallback(
                 String redirectionUrl) {
@@ -279,9 +292,15 @@ public class ExCon {
 
     }
 
-    /* Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
-       time -> time & date of the event
-       localtime -> Determines whether or not the time is to be local or UTC
+    /**
+     * @param time
+     * @param localtime
+     * @Throws Exception
+     *
+     * Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
+     * time -> time & date of the event
+     * localtime -> Determines whether or not the time is to be local or UTC
+     *
     */
     private static String ConvertTime(Date time, boolean localtime) throws Exception {
 
@@ -327,13 +346,16 @@ public class ExCon {
         }
         return resultID;
     }
-    
-    
+
     /**
-     * ParentID is a function that makes a SQL query which retrieves a list with all PARENT IDs and then retreives the desired one based on CalendarName
-     * @param CalendarName <-- The desired calendar name
-     * @param myConn <-- the connection to SQL server
-     * @return ID <-- returns the desired Subcalendar_ID
+     *
+     * @param CalendarName              <-- The desired calendar name
+     * @param myConn                    <-- the connection to SQL server
+     * @return ID                       <-- returns the desired Subcalendar_ID
+     *
+     * ParentID is a function that makes a SQL query which retrieves a list with all
+     * PARENT IDs and then retrieves the desired one based on CalendarName
+     *
      */
     
     private static String ParentID(String CalendarName, Connection myConn) throws Exception {
