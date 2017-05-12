@@ -1,4 +1,5 @@
 package com.atlassian.plugins.tutorial.refapp;
+
 /**
  * Created by jeppe on 2017-05-01.
  */
@@ -20,6 +21,7 @@ public class EventVerifier {
 
         return false;
     }
+
 
     public boolean verifyCreated(String created) {
         if (verifyDate(created)) {

@@ -32,7 +32,7 @@ public class EventMapper {
         //Create a random unique value for each event that is in the calendar of Outlook
         Random random = new Random();
         int value = random.nextInt(999999999) + 1000000000;
-        String NewVEVUID = (test.format(date) + String.valueOf(value) + "@130.229.172.50"); //VEVENT UID (after "@" put the IP of the host)
+        String NewVEVUID = (test.format(date) + String.valueOf(value) + "@localhost"); //VEVENT UID (after "@" put the IP of the host)
 
         //prepare for query
         eventInserter ei = new eventInserter();

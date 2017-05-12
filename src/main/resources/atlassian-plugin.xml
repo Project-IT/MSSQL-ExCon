@@ -24,4 +24,8 @@
         <url-pattern>/test</url-pattern>
     </servlet>
 
+    <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.AdminConfig" key="config">
+        <url-pattern>/config</url-pattern>
+    </servlet>
+
 </atlassian-plugin>

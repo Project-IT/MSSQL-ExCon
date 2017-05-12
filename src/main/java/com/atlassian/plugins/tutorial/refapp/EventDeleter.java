@@ -13,7 +13,7 @@ public class EventDeleter {
 
     public void delete(String user, Connection myConn) throws SQLException {
 
-        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable WHERE Username='" + user+"'");
+        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable WHERE Username='" + user + "'");
         ResultSet rs = ps.executeQuery();
 
         ArrayList tableIDs = new ArrayList();
@@ -21,8 +21,6 @@ public class EventDeleter {
         while (rs.next()) {
             tableIDs.add(rs.getString(1));
         }
-
-
 
 
         //Compare IDs from Outlook to the Database table - remove if matching
@@ -35,7 +33,6 @@ public class EventDeleter {
         }
 
         Statement stmt = myConn.createStatement();
-
 
 
         //loop through remaining IDs - delete correct events

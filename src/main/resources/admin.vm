@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title>MyServlet Admin</title>
+    <title>Outlook Synchronization</title>
     <meta name="decorator" content="atl.admin">
 </head>
 <body>
@@ -10,11 +10,11 @@
         <input type="text" id="name" name="name" class="text">
     </div>
     <div class="field-group">
-        <label for="age">Age:</label>
-        <input type="password" id="age" name="age" class="text">
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" class="text">
     </div>
     <div class="field-group">
-        <label for="name">Calendar Name:</label>
+        <label for="ParentID">Calendar Name:</label>
         <input type="text" id="ParentID" name="ParentID" class="text">
     </div>
     <div class="field-group">

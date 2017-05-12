@@ -28,10 +28,10 @@ import java.util.Date;
 
 public class ExCon {
 
-    public void execute(String username, String password, String calendarName) throws ServletException {
+    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
 
         String fromOutlook = "";
-        String vacationID = null;
+        String vacationID;
 
         ConfluenceUser currentUser;
         currentUser = AuthenticatedUserThreadLocal.get();
@@ -91,9 +91,9 @@ public class ExCon {
         Connection myConn;
 
         try {
-            ep.setUser("tcomkproj2017");
-            ep.setPassword("tcomkproj2017");
-            ep.setdbUrl("localhost:3306/confluence");
+            ep.setUser(IPuser);
+            ep.setPassword(IPpass);
+            ep.setdbUrl(url);
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
 
             EventMapper em = new EventMapper();
@@ -188,15 +188,13 @@ public class ExCon {
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
-                ep.setSub_calendar_id("dfa1eb25-ef12-42c8-abcf-71dec96b58ac");//SUB_CALENDAR_ID
-
                 //SUB_CALENDAR_ID
                 //this is for different vacation event type
                 if (appt.getCategories().toString().equals("Orange category,")) // for Vacation events
                 {
                     vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Orange");
                 } else {
-                    vacationID = SubCalendarID(ParentID(calendarName,myConn), myConn, "Blue");
+                    vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Blue");
                 }
 
                 ep.setSub_calendar_id(vacationID);
@@ -283,7 +281,7 @@ public class ExCon {
     }
 
     private String SubCalendarID(String parentID, Connection myConn, String color) throws SQLException {
-        String resultID ="";
+        String resultID = "";
         ResultSet myRs;
         //Create a statement
         Statement myStm = myConn.createStatement();
@@ -304,6 +302,13 @@ public class ExCon {
         return resultID;
     }
 
+    /**
+     * ParentID is a function that makes a SQL query which retrieves a list with all PARENT IDs and then retreives the desired one based on CalendarName
+     *
+     * @param CalendarName <-- The desired calendar name
+     * @param myConn       <-- the connection to SQL server
+     * @return ID <-- returns the desired Subcalendar_ID
+     */
     private static String ParentID(String CalendarName, Connection myConn) throws Exception {
 
         Statement State = myConn.createStatement();
