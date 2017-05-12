@@ -38,7 +38,7 @@ public class ExCon {
      *  @throws ServletException   <- Throws appropriate exception
      *
      *  The execute function takes the above mentioned parameters, handles the login to Outlook
-     *  and then sends the information retrieved from outlook into the EventParamter class.
+     *  and then sends the information retrieved from outlook into the EventParameter class.
      *  That - in turn - handles the SQL query needed for inserting into the event table.
      *  The biggest part of the execute function is the for-loop getting each event from outlook
      *  It was benchmarked to run at ~nlog(n) time. Refer to our documentation for more details.
