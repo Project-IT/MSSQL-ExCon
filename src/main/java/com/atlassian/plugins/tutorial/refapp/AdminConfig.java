@@ -88,7 +88,7 @@ public class AdminConfig extends HttpServlet {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".databaseIP", noName);
         }
         else{
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".databsaeIP", req.getParameter("databaseIP"));
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".databaseIP", req.getParameter("databaseIP"));
         }
 
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataPass") == null) {
