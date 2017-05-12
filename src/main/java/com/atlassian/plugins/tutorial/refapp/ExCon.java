@@ -108,6 +108,8 @@ public class ExCon {
         findResults.getItems();
 
         eventParameters ep = new eventParameters();
+        InviteesInserter Ii=new InviteesInserter();
+        LastEventIdFinder Leif=new LastEventIdFinder();
         Connection myConn;
 
         try {
@@ -172,7 +174,6 @@ public class ExCon {
                     x.printStackTrace();
                 }
 
-                //Last_Modified
                 try {
                     ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
                 } catch (ParseException x) {
@@ -258,8 +259,11 @@ public class ExCon {
 
                 em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep);
             }
-            ed.delete(username, myConn); //clean up database
+          
+            Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
+            ed.delete(myConn); //clean up database
             myConn.close();
+          
         } catch (Exception exc) {
             exc.printStackTrace();
         }
