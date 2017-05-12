@@ -7,7 +7,7 @@ import java.sql.PreparedStatement;
  * Created by jeppe on 2017-05-11.
  */
 public class InviteesInserter {
-    protected final String TABLENAME="confluence.ao_950dc3_tc_events_invitees";
+    protected final String TABLENAME="confluencebu.ao_950dc3_tc_events_invitees";
 
     protected String insertQuery="INSERT INTO " + TABLENAME +
             " (EVENT_ID, INVITEE_ID)" +

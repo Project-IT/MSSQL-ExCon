@@ -116,7 +116,7 @@ public class ExCon {
         try {
             ep.setUser("tcomkproj2017");
             ep.setPassword("tcomkproj2017");
-            ep.setdbUrl("localhost:3306/confluence");
+            ep.setdbUrl("localhost:3306/confluencebu");
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
 
             EventMapper em = new EventMapper();
@@ -338,13 +338,13 @@ public class ExCon {
         Statement myStm = myConn.createStatement();
         // Get the child-ID of the parentID to corresponding color
         if (color.equals("Orange")) {
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
+            myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
                 return resultID;
             }
         } else {
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
+            myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
                 return resultID;

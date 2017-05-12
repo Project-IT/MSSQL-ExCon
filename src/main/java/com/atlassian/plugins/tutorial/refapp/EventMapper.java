@@ -76,12 +76,12 @@ public class EventMapper {
         PreparedStatement preparedStatement;
 
         // Check if user is known
-        PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluence.outlookuidtable WHERE Username='" + user + "'");
+        PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluencebu.outlookuidtable WHERE Username='" + user + "'");
         ResultSet userRs = userStatement.executeQuery();
 
         if (userRs.next()) { //user is known, update their events
 
-            preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
+            preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluencebu.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet myRs = preparedStatement.executeQuery();
 
             if (!myRs.next()) { // new event
@@ -100,7 +100,7 @@ public class EventMapper {
             PreparedStatement nameMapStatement = myConn.prepareStatement("INSERT INTO OutlookUIDTable" + "(Username)" + "VALUES ('" + user + "')");
             nameMapStatement.execute();
 
-            PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
+            PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM confluencebu.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet userMapRS = newUserMap.executeQuery();
 
             // Like before insert new events into Calendar under new username
