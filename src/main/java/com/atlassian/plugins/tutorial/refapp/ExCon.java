@@ -28,6 +28,26 @@ import java.util.Date;
 
 public class ExCon {
 
+    /**
+     * Written by ExCon Group from KTH Sweden - Code is available freely at our github
+     *  under the GNU GPL.
+     *
+     *  @param username            <- Retrieved from MyPluginServlet that gets it from Admin.vm
+     *  @param password            <- Retrieved from MyPluginServlet that gets it from Admin.vm
+     *  @param calendarName        <- Retrieved from MyPluginServlet that gets it from Admin.vm
+     *  @throws ServletException   <- Throws appropriate exception
+     *
+     *  The execute function takes the above mentioned parameters, handles the login to Outlook
+     *  and then sends the information retrieved from outlook into the EventParamter class.
+     *  That - in turn - handles the SQL query needed for inserting into the event table.
+     *  The biggest part of the execute function is the for-loop getting each event from outlook
+     *  It was benchmarked to run at ~nlog(n) time. Refer to our documentation for more details.
+     *
+     *  Within execute, there are a number of function calls. Some are separate classes while
+     *  others are nested below. Refer to function comments for more details.
+     *
+     */
+
     public void execute(String username, String password, String calendarName) throws ServletException {
 
         String fromOutlook = "";
