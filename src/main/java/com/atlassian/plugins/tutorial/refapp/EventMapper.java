@@ -53,7 +53,7 @@ public class EventMapper {
      * It checks if the username used to log in to Outlook is already known, if such - update and insert that users
      * events into the database. Else, map a new user into the table (only username is stored) and map events  under
      * that username. This is to prevent deletion later.
-     * 
+     *
      */
 
     @SuppressWarnings("Duplicates")
