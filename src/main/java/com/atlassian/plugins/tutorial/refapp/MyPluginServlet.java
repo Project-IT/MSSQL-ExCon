@@ -1,5 +1,4 @@
 package com.atlassian.plugins.tutorial.refapp;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
@@ -20,6 +19,10 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 
+/**
+ * Created in-part by ExCon Group
+ * Code based on tutorial from Atlassian
+ */
 
 @Scanned
 public class MyPluginServlet extends HttpServlet
@@ -45,7 +48,7 @@ public class MyPluginServlet extends HttpServlet
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException
     {
         String username = userManager.getRemoteUsername(request);
-        if (username == null || !userManager.isSystemAdmin(username))
+        if (username == null )
         {
             redirectToLogin(request, response);
             return;

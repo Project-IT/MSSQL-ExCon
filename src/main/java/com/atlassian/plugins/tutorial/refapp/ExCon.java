@@ -1,5 +1,4 @@
 package com.atlassian.plugins.tutorial.refapp;
-
 import microsoft.exchange.webservices.data.autodiscover.IAutodiscoverRedirectionUrl;
 import microsoft.exchange.webservices.data.core.ExchangeService;
 import microsoft.exchange.webservices.data.core.enumeration.misc.ExchangeVersion;
@@ -26,6 +25,9 @@ import java.text.SimpleDateFormat;
 import java.sql.*;
 import java.util.Date;
 
+/**
+ * Created by ExCon Group 2017-0x-xx
+ */
 public class ExCon {
 
     /**
