@@ -1,12 +1,11 @@
 package com.atlassian.plugins.tutorial.refapp;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Types;
 
 /**
- * Created by alexander on 2017-05-05.
+ * Created by ExCon Group on 2017-05-05.
  */
 public class EventUpdater {
 

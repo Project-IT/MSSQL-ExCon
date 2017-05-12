@@ -1,6 +1,8 @@
 package com.atlassian.plugins.tutorial.refapp;
 
-
+/**
+ * Deprecated Class
+ */
 public class Event {
 
     String start;       // Start time of the event

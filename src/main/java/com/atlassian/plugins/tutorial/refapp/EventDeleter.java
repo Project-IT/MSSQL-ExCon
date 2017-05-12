@@ -1,11 +1,9 @@
 package com.atlassian.plugins.tutorial.refapp;
-
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /**
- * Created by alexander on 2017-05-08.
+ * Created by ExCon Group on 2017-05-08.
  */
 public class EventDeleter {
 

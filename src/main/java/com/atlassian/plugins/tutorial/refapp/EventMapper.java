@@ -1,5 +1,4 @@
 package com.atlassian.plugins.tutorial.refapp;
-
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -7,7 +6,7 @@ import java.util.TimeZone;
 import java.util.Date;
 
 /**
- * Created by alexander on 2017-05-05.
+ * Created by ExCon Group on 2017-05-05.
  */
 public class EventMapper {
 

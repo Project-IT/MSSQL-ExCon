@@ -1,6 +1,7 @@
 package com.atlassian.plugins.tutorial.refapp;
+
 /**
- * Created by jeppe on 2017-05-01.
+ * Created by ExCon Group on 2017-05-01.
  */
 public class EventVerifier {
     //defensive methods to check the input of the fields

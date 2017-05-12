@@ -1,9 +1,14 @@
 package com.atlassian.plugins.tutorial.refapp;
 import java.sql.*;
+
 /**
- * ConfluenceCreated by jeppe on 2017-04-28.
+ * Created by ExCon Group on 2017-04-28.
  */
 public class eventInserter {
+    /**
+     * Used for inserting new events into the Confluence Calendar Events table in
+     * the database
+     */
     protected PreparedStatement ps=null;
     public void insert(eventParameters dbEventObject, Connection myConn)  throws SQLException{
         if (dbEventObject.verifyParameters()){
