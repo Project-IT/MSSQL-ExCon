@@ -4,14 +4,16 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- * ConfluenceCreated by jeppe on 2017-04-29.
+ * Created by ExCon Group on 2017-04-29.
  */
 public abstract class dbParameters {
-    protected String DbDriver = "jdbc:mysql://";
 
-    protected String dbUrl = null;
-    protected String user = null;
-    protected String password = null;
+
+    // Declaration of Database parameters
+    protected String DbDriver="jdbc:mysql://";
+    protected String dbUrl=     null;
+    protected String user=      null;
+    protected String password=  null;
 
     public boolean verifyDbParameters() {
         if (dbUrl == null) return false;

@@ -1,8 +1,10 @@
 package com.atlassian.plugins.tutorial.refapp;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.io.IOException;
@@ -52,6 +54,7 @@ public class AdminConfig extends HttpServlet {
             redirectToLogin(request, response);
             return;
         }
+
         response.setContentType("text/html;charset=utf-8");
         templateRenderer.render("config.vm", response.getWriter());
 
@@ -59,6 +62,7 @@ public class AdminConfig extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
+
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
 
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".databaseIP") == null) {
