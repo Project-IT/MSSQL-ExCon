@@ -51,13 +51,12 @@ public class ExCon {
      */
 
 
-
     public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
 
         //declarations
         String globalCalendar = "";
-        String fromOutlook = "";
-        String vacationID = null;
+        String calID = null;
+
         ConfluenceUser currentUser;
         currentUser = AuthenticatedUserThreadLocal.get();
 
@@ -220,9 +219,9 @@ public class ExCon {
                     ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
                     //SubCalID
-                    vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Blue");
-                    ep.setSub_calendar_id(vacationID);
-                    globalCalendar=vacationID;
+                    calID = SubCalendarID(ParentID(calendarName, myConn), myConn);
+                    ep.setSub_calendar_id(calID);
+                    globalCalendar = calID;
 
                     //SUMMARY
                     ep.setSummary(appt.getSubject());
@@ -259,12 +258,10 @@ public class ExCon {
                     em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep, globalCalendar);
                 }
             }
-
             //clean up database
             ed.delete(username, myConn);
             //close connection
             myConn.close();
-
         } catch (Exception exc) {
             exc.printStackTrace();
         }
@@ -272,7 +269,7 @@ public class ExCon {
 
     /**
      * @implements IAutodiscoverRedirectionUrl
-     *
+     * <p>
      * Function provided by Exchange Web-Service which is distributed under the MIT License.
      * For more information refer to their user-manual.
      */
@@ -285,12 +282,9 @@ public class ExCon {
     }
 
     /**
-     *
      * @param date
      * @param days
-     * @return
-     *
-     * Simple function for adding days in-case.
+     * @return Simple function for adding days in-case.
      */
     public static Date addDays(Date date, int days) {
         Calendar cal = Calendar.getInstance();
@@ -300,10 +294,10 @@ public class ExCon {
     }
 
     /**
-     * @param time          time & date of the event
-     * @param localtime     Determines whether or not the time is to be local or UTC
+     * @param time      time & date of the event
+     * @param localtime Determines whether or not the time is to be local or UTC
      * @Throws Exception
-     *
+     * <p>
      * Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
      */
     private static String ConvertTime(Date time, boolean localtime) throws Exception {
@@ -341,26 +335,17 @@ public class ExCon {
      * @return resultID <- SubCalendarID
      * @throws SQLException
      */
-    private String SubCalendarID(String parentID, Connection myConn, String color) throws SQLException {
+    private String SubCalendarID(String parentID, Connection myConn) throws SQLException {
         String resultID = "";
         ResultSet myRs;
         //Create a statement
         Statement myStm = myConn.createStatement();
 
-        if (color.equals("Orange")) {
-            // SQL query that return  ID of given parentID and orange color
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
-            if (myRs.next()) {
-                resultID = myRs.getString("ID");
-                return resultID;
-            }
-        } else {
-            // SQL query that return  ID of given parentID and blue color
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
-            if (myRs.next()) {
-                resultID = myRs.getString("ID");
-                return resultID;
-            }
+        // SQL query that return  ID of given parentID and blue color
+        myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
+        if (myRs.next()) {
+            resultID = myRs.getString("ID");
+            return resultID;
         }
         return resultID;
     }
