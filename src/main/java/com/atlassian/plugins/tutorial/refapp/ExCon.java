@@ -282,15 +282,13 @@ public class ExCon {
     }
 
     /**
-     * @param time
-     * @param localtime
-     * @Throws Exception
      *
-     * Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
-     * time -> time & date of the event
-     * localtime -> Determines whether or not the time is to be local or UTC
+     * @param date
+     * @param days
+     * @return
+     *
+     * Simple function for adding days in-case.
      */
-
     public static Date addDays(Date date, int days) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
@@ -298,6 +296,13 @@ public class ExCon {
         return cal.getTime();
     }
 
+    /**
+     * @param time          time & date of the event
+     * @param localtime     Determines whether or not the time is to be local or UTC
+     * @Throws Exception
+     *
+     * Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
+     */
     private static String ConvertTime(Date time, boolean localtime) throws Exception {
 
         Date date = null;
