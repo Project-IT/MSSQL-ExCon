@@ -102,7 +102,7 @@ public class AdminConfig extends HttpServlet {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataUser", req.getParameter("dataUser"));
         }
 
-        response.sendRedirect("http://localhost:8090/plugins/servlet/test");
+        response.sendRedirect("test");
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {

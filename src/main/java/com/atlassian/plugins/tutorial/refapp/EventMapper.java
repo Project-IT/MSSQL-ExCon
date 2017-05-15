@@ -1,4 +1,5 @@
 package com.atlassian.plugins.tutorial.refapp;
+
 import java.sql.*;
 import java.text.SimpleDateFormat;
 import java.util.Random;
@@ -14,17 +15,13 @@ public class EventMapper {
     private final String tableName = "OutlookUIDtable";
 
     /**
-     *
-     * @param myConn                 <- The connection from execute
-     * @throws SQLException
-     *
-     * Creates a new table in the SQL database if there were none before.
-     * Does nothing otherwise.
-     *
-     * This table is used to map the Unique IDs that are retrieved from the Outlook events
-     * to the events that will be inserted into Confluence - they also get Unique IDs based
-     * on the format Confluence uses.
-     *
+     * @param myConn <- The connection from execute
+     * @throws SQLException Creates a new table in the SQL database if there were none before.
+     *                      Does nothing otherwise.
+     *                      <p>
+     *                      This table is used to map the Unique IDs that are retrieved from the Outlook events
+     *                      to the events that will be inserted into Confluence - they also get Unique IDs based
+     *                      on the format Confluence uses.
      */
 
     public void tableMaker(Connection myConn) throws SQLException {
@@ -34,25 +31,21 @@ public class EventMapper {
     }
 
     /**
-     *
-     * @param OutlookUID            <- The Unique Identifier from the Outlook Event that is currently handled
-     * @param user                  <- The Outlook Username
-     * @param myConn                <- The connection from execute
-     * @param eu                    <- The event updater used in execute
-     * @param ep                    <- The Event Parameters for the currently handled event
-     * @return                      <- Returns true if event is known, false if it is a new event
-     * @throws SQLException
-     *
-     * This function is called at the end of every for-loop in execute. It handles the information retrieved from
-     * Outlook that is currently stored in the EventParameter class and uses that to insert the event into the
-     * Confluence calender OR update an already known event.
-     *
-     * This function takes care of quite a lot.
-     *
-     * It checks if the username used to log in to Outlook is already known, if such - update and insert that users
-     * events into the database. Else, map a new user into the table (only username is stored) and map events  under
-     * that username. This is to prevent deletion later.
-     *
+     * @param OutlookUID <- The Unique Identifier from the Outlook Event that is currently handled
+     * @param user       <- The Outlook Username
+     * @param myConn     <- The connection from execute
+     * @param eu         <- The event updater used in execute
+     * @param ep         <- The Event Parameters for the currently handled event
+     * @return <- Returns true if event is known, false if it is a new event
+     * @throws SQLException This function is called at the end of every for-loop in execute. It handles the information retrieved from
+     *                      Outlook that is currently stored in the EventParameter class and uses that to insert the event into the
+     *                      Confluence calender OR update an already known event.
+     *                      <p>
+     *                      This function takes care of quite a lot.
+     *                      <p>
+     *                      It checks if the username used to log in to Outlook is already known, if such - update and insert that users
+     *                      events into the database. Else, map a new user into the table (only username is stored) and map events  under
+     *                      that username. This is to prevent deletion later.
      */
 
     @SuppressWarnings("Duplicates")
@@ -80,8 +73,8 @@ public class EventMapper {
         ResultSet userRs = userStatement.executeQuery();
 
         //prepare for adding which user is invited
-        InviteesInserter Ii=new InviteesInserter();
-        LastEventIdFinder Leif=new LastEventIdFinder();
+        InviteesInserter Ii = new InviteesInserter();
+        LastEventIdFinder Leif = new LastEventIdFinder();
 
         if (userRs.next()) { //user is known, update their events
 
@@ -89,7 +82,7 @@ public class EventMapper {
             ResultSet myRs = preparedStatement.executeQuery();
 
             if (!myRs.next()) { // new event
-                String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "')";
+                String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID, Username)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
