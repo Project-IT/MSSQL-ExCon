@@ -33,6 +33,5 @@
         <label key="ExCon Configuration" />
         <link linkId="ExCon-admin-link">/plugins/servlet/config</link>
     </web-item>
-    
 
 </atlassian-plugin>

@@ -50,9 +50,12 @@ public class ExCon {
      *                          others are nested below. Refer to function comments for more details.
      */
 
+
+
     public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
 
         //declarations
+        String globalCalendar = "";
         String fromOutlook = "";
         String vacationID = null;
         ConfluenceUser currentUser;
@@ -219,6 +222,7 @@ public class ExCon {
                     //SubCalID
                     vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Blue");
                     ep.setSub_calendar_id(vacationID);
+                    globalCalendar=vacationID;
 
                     //SUMMARY
                     ep.setSummary(appt.getSubject());
@@ -252,7 +256,7 @@ public class ExCon {
                     }
 
                     //call tablemapper to map events in outlook to events in confluence
-                    em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep);
+                    em.tableMap(ep.getVevent_uid(), username, myConn, eu, ep, globalCalendar);
                 }
             }
 
@@ -364,7 +368,7 @@ public class ExCon {
     /**
      * @param CalendarName <-- The desired calendar name
      * @param myConn       <-- the connection to SQL server
-     * @return ID                       <-- returns the desired Subcalendar_ID
+     * @return ID          <-- returns the desired Subcalendar_ID
      * <p>
      * ParentID is a function that makes a SQL query which retrieves a list with all
      * PARENT IDs and then retrieves the desired one based on CalendarName
