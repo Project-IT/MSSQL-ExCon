@@ -28,18 +28,15 @@
     <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.AdminConfig" key="config">
         <url-pattern>/config</url-pattern>
     </servlet>
-
     <web-item key="conf-menu-item" name="Plugin Configuration" section="system.admin/configuration" weight="10">
         <description>Link to xproduct-admin page.</description>
         <label key="Plugin Configuration" />
         <link linkId="xproduct-admin-link">/plugins/servlet/config</link>
     </web-item>
-
     <!--The necessary web-item for the button on the Confluence Dashboard-->
     <web-item key="out-synch" name="Outlook Synch" section="system.header/left" weight="60">
         <description>Outlook Synchronization</description>
         <label key="Outlook Synch" />
         <link linkId="sync_page">/plugins/servlet/test</link>
     </web-item>
-
 </atlassian-plugin>

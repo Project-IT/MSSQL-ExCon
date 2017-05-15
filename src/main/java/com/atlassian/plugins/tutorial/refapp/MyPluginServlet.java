@@ -62,7 +62,6 @@ public class MyPluginServlet extends HttpServlet {
             String noParentID = "Enter a Calendar name here.";
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".ParentID", noParentID);
         }
-
         context.put("name", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name"));
         context.put("password", pluginSettings.get(PLUGIN_STORAGE_KEY + ".password"));
         context.put("ParentID", pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID"));*/
@@ -77,9 +76,11 @@ public class MyPluginServlet extends HttpServlet {
         String url = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".databaseIP")));
         String dataPass = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataPass")));
         String dataUser = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataUser")));
+
         int months =  Integer.parseInt(String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".months"))));
         ExCon exCon = new ExCon();
         exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"), url, dataPass, dataUser, months);
+      
         //response.sendRedirect("savedSynch");
         response.setContentType("text/html;charset=utf-8");
         templateRenderer.render("savedSynch.vm", response.getWriter());

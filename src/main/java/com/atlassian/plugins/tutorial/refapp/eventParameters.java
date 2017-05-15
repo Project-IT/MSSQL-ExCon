@@ -3,7 +3,7 @@ package com.atlassian.plugins.tutorial.refapp;
 import java.sql.*;
 
 /**
- * ConfluenceCreated by jeppe on 2017-04-28.
+ * Created by ExCon Group on 2017-04-28.
  */
 public class eventParameters extends dbParameters {
     protected final String TABLENAME = "confluence.ao_950dc3_tc_events";
