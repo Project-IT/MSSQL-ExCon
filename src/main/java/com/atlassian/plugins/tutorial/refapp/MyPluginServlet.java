@@ -80,7 +80,9 @@ public class MyPluginServlet extends HttpServlet {
         int months =  Integer.parseInt(String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".months"))));
         ExCon exCon = new ExCon();
         exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"), url, dataPass, dataUser, months);
-        response.sendRedirect("test");
+        //response.sendRedirect("savedSynch");
+        response.setContentType("text/html;charset=utf-8");
+        templateRenderer.render("savedSynch.vm", response.getWriter());
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {

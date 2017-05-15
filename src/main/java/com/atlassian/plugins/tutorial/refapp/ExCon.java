@@ -169,7 +169,7 @@ public class ExCon {
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
-                ep.setSub_calendar_id(SubCalendarID(ParentID(calendarName, myConn)));
+                ep.setSub_calendar_id(ParentID(calendarName, myConn));
 
                 ep.setSummary(appt.getSubject());                //SUMMARY
                 ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
