@@ -44,11 +44,6 @@ public class MyPluginServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        String username = userManager.getRemoteUsername(request);
-        if (username == null || !userManager.isSystemAdmin(username)) {
-            redirectToLogin(request, response);
-            return;
-        }
       /*  Map<String, Object> context = new HashMap<String, Object>();
 
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
@@ -85,8 +80,10 @@ public class MyPluginServlet extends HttpServlet {
         int months =  Integer.parseInt(String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".months"))));
         ExCon exCon = new ExCon();
         exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"), url, dataPass, dataUser, months);
-
-        response.sendRedirect("test");
+      
+        //response.sendRedirect("savedSynch");
+        response.setContentType("text/html;charset=utf-8");
+        templateRenderer.render("savedSynch.vm", response.getWriter());
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -101,7 +98,4 @@ public class MyPluginServlet extends HttpServlet {
         }
         return URI.create(builder.toString());
     }
-
-    // This is what your MyPluginServlet.java should look like in its final stages.
-
 }

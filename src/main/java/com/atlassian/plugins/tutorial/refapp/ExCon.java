@@ -75,28 +75,6 @@ public class ExCon {
             e.printStackTrace();
         }
 
-        // Sets the Date Format
-        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        // Sets start Date
-        Date startDate = null;
-        try {
-            startDate = formatter.parse("2017-04-10 12:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // Sets end Date
-        Date endDate = null;
-        try {
-            endDate = formatter.parse("2017-05-30 13:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        /**
-         * Creates a Date 2 years from now
-         */
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, months);
         Date endDate = cal.getTime();
@@ -189,7 +167,7 @@ public class ExCon {
                     } catch (ParseException x) {
                         x.printStackTrace();
                     }
-
+                  
                     //Last modified
                     try {
                         ep.setLast_modified(ConvertTime(appt.getLastModifiedTime(), true));
@@ -282,7 +260,6 @@ public class ExCon {
      * Function provided by Exchange Web-Service which is distributed under the MIT License.
      * For more information refer to their user-manual.
      */
-
     static class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
         public boolean autodiscoverRedirectionUrlValidationCallback(
                 String redirectionUrl) {
@@ -362,7 +339,6 @@ public class ExCon {
     }
 
     /**
-
      * @param CalendarName <-- The desired calendar name
      * @param myConn       <-- the connection to SQL server
      * @return ID          <-- returns the desired Subcalendar_ID
@@ -381,6 +357,11 @@ public class ExCon {
             if (Res.getString("calendar_name").equals(CalendarName)) {
                 ID = Res.getString("ID");
             }
+        }
+        Res.close();
+        ResultSet myRs = State.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + ID + "' AND COLOUR='subcalendar-blue';");
+        if (myRs.next()) {
+            ID = myRs.getString("ID");
         }
         return ID;
     }
