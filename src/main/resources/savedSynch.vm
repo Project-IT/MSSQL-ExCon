@@ -7,7 +7,7 @@
 <body>
 <form id="config" class="aui" action="" method="POST">
     <div class="field-group">
-        <input type="button" value="Return to start" style="width:120px;height:40px;" class="button" id="myButton">
+        <input type="button" value="Return" style="width:120px;height:40px;" class="button" id="myButton">
         <script type="text/javascript">
             document.getElementById("myButton").onclick = function () {
                 location.href = "http://localhost:8090/#all-updates";

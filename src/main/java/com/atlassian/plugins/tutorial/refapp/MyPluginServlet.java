@@ -97,7 +97,4 @@ public class MyPluginServlet extends HttpServlet {
         }
         return URI.create(builder.toString());
     }
-
-    // This is what your MyPluginServlet.java should look like in its final stages.
-
 }

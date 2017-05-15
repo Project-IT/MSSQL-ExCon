@@ -259,7 +259,7 @@ public class ExCon {
     }
 
     /**
-     * ParentID is a function that makes a SQL query which retrieves a list with all PARENT IDs and then retreives the desired one based on CalendarName
+     * ParentID is a function that makes a SQL query which retrieves a list with all PARENT IDs and then retrieves the desired one based on CalendarName
      *
      * @param CalendarName <-- The desired calendar name
      * @param myConn       <-- the connection to SQL server
@@ -276,6 +276,11 @@ public class ExCon {
             if (Res.getString("calendar_name").equals(CalendarName)) {
                 ID = Res.getString("ID");
             }
+        }
+        Res.close();
+        ResultSet myRs = State.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + ID + "' AND COLOUR='subcalendar-blue';");
+        if (myRs.next()) {
+            ID = myRs.getString("ID");
         }
         return ID;
     }
