@@ -27,11 +27,11 @@
     <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.AdminConfig" key="config">
         <url-pattern>/config</url-pattern>
     </servlet>
-
-    <web-item key="conf-menu-item" name="ExCon Configuration" section="system.admin/configuration" weight="10">
-        <description>ExCon: Configure Syncing outlook to team Calendars</description>
-        <label key="ExCon Configuration" />
-        <link linkId="ExCon-admin-link">/plugins/servlet/config</link>
+  
+    <web-item key="conf-menu-item" name="Plugin Configuration" section="system.admin/configuration" weight="10">
+        <description>Link to xproduct-admin page.</description>
+        <label key="Plugin Configuration" />
+        <link linkId="xproduct-admin-link">/plugins/servlet/config</link>
     </web-item>
 
 </atlassian-plugin>

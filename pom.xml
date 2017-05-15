@@ -214,8 +214,11 @@
     </build>
 
     <properties>
+
+        <!--Necessary for confluence dependency-->
         <confluence.version>LATEST</confluence.version>
         <confluence.data.version>LATEST</confluence.data.version>
+
         <platform.version>3.0.0</platform.version>
         <refapp.version>3.3.6</refapp.version>
         <amps.version>6.2.11</amps.version>

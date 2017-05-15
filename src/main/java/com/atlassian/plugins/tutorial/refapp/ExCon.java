@@ -31,6 +31,7 @@ import java.util.Date;
  */
 public class ExCon {
 
+
     /**
      * Written by ExCon Group from KTH Sweden - Code is available freely at our github
      * under the GNU GPL.
@@ -51,7 +52,7 @@ public class ExCon {
      */
 
 
-    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
+    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser, int months) throws ServletException {
 
         //declarations
         String globalCalendar = "";
@@ -75,7 +76,7 @@ public class ExCon {
         }
 
         // Sets the Date Format
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // Sets start Date
         Date startDate = null;
@@ -91,7 +92,14 @@ public class ExCon {
             endDate = formatter.parse("2017-05-30 13:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        /**
+         * Creates a Date 2 years from now
+         */
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, months);
+        Date endDate = cal.getTime();
 
         // Defines which Calendar Folder to use
         CalendarFolder cf = null;
@@ -104,7 +112,7 @@ public class ExCon {
         // Makes an array of Calendar Results
         FindItemsResults<Appointment> findResults = null;
         try {
-            findResults = cf.findAppointments(new CalendarView(startDate, endDate));
+            findResults = cf.findAppointments(new CalendarView(new Date(), endDate));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -173,6 +181,7 @@ public class ExCon {
                     } catch (ParseException x) {
                         x.printStackTrace();
                     }
+
 
                     //End time
                     try {
@@ -325,6 +334,7 @@ public class ExCon {
         }
     }
 
+
     /**
      * SubCalendar is a different event types of a calendar as Event, Birthday, Travel  etc ..
      * SubCalendarID method take parentID and return SubCalendarID according to a given color by sending SQL query
@@ -336,6 +346,7 @@ public class ExCon {
      * @throws SQLException
      */
     private String SubCalendarID(String parentID, Connection myConn) throws SQLException {
+
         String resultID = "";
         ResultSet myRs;
         //Create a statement
@@ -351,6 +362,7 @@ public class ExCon {
     }
 
     /**
+
      * @param CalendarName <-- The desired calendar name
      * @param myConn       <-- the connection to SQL server
      * @return ID          <-- returns the desired Subcalendar_ID
@@ -358,7 +370,6 @@ public class ExCon {
      * ParentID is a function that makes a SQL query which retrieves a list with all
      * PARENT IDs and then retrieves the desired one based on CalendarName
      */
-
     private static String ParentID(String CalendarName, Connection myConn) throws Exception {
 
         Statement State = myConn.createStatement();

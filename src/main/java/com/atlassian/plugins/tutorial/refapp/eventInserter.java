@@ -1,10 +1,12 @@
 package com.atlassian.plugins.tutorial.refapp;
+
 import java.sql.*;
 
 /**
  * Created by ExCon Group on 2017-04-28.
  */
 public class eventInserter {
+
     /**
      * Used for inserting new events into the Confluence Calendar Events table in
      * the database

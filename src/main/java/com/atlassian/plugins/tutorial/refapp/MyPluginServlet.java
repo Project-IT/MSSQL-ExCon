@@ -50,15 +50,19 @@ public class MyPluginServlet extends HttpServlet {
             return;
         }
       /*  Map<String, Object> context = new HashMap<String, Object>();
+
         PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
+
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".name") == null) {
             String noName = "Enter a name here.";
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".name", noName);
         }
+
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".password") == null) {
             String noAge = "Enter an password here.";
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".password", noAge);
         }
+
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID") == null) {
             String noParentID = "Enter a Calendar name here.";
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".ParentID", noParentID);
@@ -77,8 +81,11 @@ public class MyPluginServlet extends HttpServlet {
         String url = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".databaseIP")));
         String dataPass = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataPass")));
         String dataUser = String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataUser")));
+
+        int months =  Integer.parseInt(String.valueOf((pluginSettings.get(PLUGIN_STORAGE_KEY + ".months"))));
         ExCon exCon = new ExCon();
-        exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"), url, dataPass, dataUser);
+        exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"), url, dataPass, dataUser, months);
+
         response.sendRedirect("test");
     }
 

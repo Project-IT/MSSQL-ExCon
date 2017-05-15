@@ -1,4 +1,5 @@
 package com.atlassian.plugins.tutorial.refapp;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -7,49 +8,55 @@ import java.sql.DriverManager;
  */
 public abstract class dbParameters {
 
+
     // Declaration of Database parameters
     protected String DbDriver="jdbc:mysql://";
     protected String dbUrl=     null;
     protected String user=      null;
     protected String password=  null;
 
-    public boolean verifyDbParameters(){
-        if(dbUrl==null)                  return false;
-        if(user==null)                   return false;
-        if(password==null)               return false;
+    public boolean verifyDbParameters() {
+        if (dbUrl == null) return false;
+        if (user == null) return false;
+        if (password == null) return false;
         //Testing connection
-        try{
+        try {
             Connection myConn = DriverManager.getConnection(dbUrl, user, password);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return true;
     }
 
-    public void setDbDriver(String s){
-        this.DbDriver=s;
-    }
-    public void setdbUrl(String s){
-        this.dbUrl=DbDriver + s;
-    }
-    public void setPassword(String s){
-        this.password=s;
-    }
-    public void setUser(String s){
-        this.user=s;
+    public void setDbDriver(String s) {
+        this.DbDriver = s;
     }
 
-    public String getDbDriver(){
+    public void setdbUrl(String s) {
+        this.dbUrl = DbDriver + s;
+    }
+
+    public void setPassword(String s) {
+        this.password = s;
+    }
+
+    public void setUser(String s) {
+        this.user = s;
+    }
+
+    public String getDbDriver() {
         return DbDriver;
     }
-    public String getDbUrl(){
+
+    public String getDbUrl() {
         return dbUrl;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
-    public String getUser(){
+
+    public String getUser() {
         return user;
     }
 

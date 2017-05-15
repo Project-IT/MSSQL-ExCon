@@ -33,8 +33,10 @@ public class EventDeleter {
 
     public void delete(String user, Connection myConn) throws SQLException {
 
+
         //prepare for inputting into ArrayList
         PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable WHERE Username='" + user+"'");
+
         ResultSet rs = ps.executeQuery();
 
         //declaration
@@ -59,7 +61,9 @@ public class EventDeleter {
         //prepare statement for SQL queries
         Statement stmt = myConn.createStatement();
 
+
         //make sure ArrayList is not empty
+
         if (tableIDs.size() != 0) {
             //loop through remaining IDs - delete correct events
             for (Object ID : tableIDs) {

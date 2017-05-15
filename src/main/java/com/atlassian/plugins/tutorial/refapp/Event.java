@@ -28,7 +28,9 @@ public class Event {
         this.body = body;
     }
 
-    public void addAllDayEvent(String allDay) { this.allDay = allDay; }
+    public void addAllDayEvent(String allDay) {
+        this.allDay = allDay;
+    }
 
     public void addSubject(String subject) {
         this.subject = subject;
