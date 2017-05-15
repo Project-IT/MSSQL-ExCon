@@ -278,7 +278,6 @@ public class ExCon {
                 String redirectionUrl) {
             return redirectionUrl.toLowerCase().startsWith("https://");
         }
-
     }
 
     /**
