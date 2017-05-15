@@ -50,7 +50,7 @@ public class ExCon {
      *
      */
 
-    public void execute(String username, String password, String calendarName) throws ServletException {
+    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
 
         //declarations
         String fromOutlook = "";
@@ -110,15 +110,13 @@ public class ExCon {
         findResults.getItems();
 
         eventParameters ep = new eventParameters();
-        InviteesInserter Ii=new InviteesInserter();
-        LastEventIdFinder Leif=new LastEventIdFinder();
         Connection myConn;
 
         //sets database user
         try {
-            ep.setUser("tcomkproj2017");
-            ep.setPassword("tcomkproj2017");
-            ep.setdbUrl("localhost:3306/confluencebu");
+            ep.setUser(IPuser);
+            ep.setPassword(IPpass);
+            ep.setdbUrl(url);
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
 
             EventMapper em = new EventMapper();
@@ -272,7 +270,6 @@ public class ExCon {
             }
 
             //LastEventIdFinder - set the correct organiser for the events retrieved
-            Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
             //clean up database
             ed.delete(username,myConn);
             //close connection
@@ -350,14 +347,14 @@ public class ExCon {
 
         if (color.equals("Orange")) {
             // SQL query that return  ID of given parentID and orange color
-            myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
+            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
                 return resultID;
             }
         } else {
             // SQL query that return  ID of given parentID and blue color
-            myRs = myStm.executeQuery("SELECT ID FROM confluencebu.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
+            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
             if (myRs.next()) {
                 resultID = myRs.getString("ID");
                 return resultID;

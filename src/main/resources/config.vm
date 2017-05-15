@@ -1,0 +1,25 @@
+<html>
+<head>
+    <title>Plugin Configuration</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+<form id="config" class="aui" action="" method="POST">
+    <div class="field-group">
+        <label for="databaseIP">Database IP:</label>
+        <input type="text" id="databaseIP" name="databaseIP" class="text">
+    </div>
+    <div class="field-group">
+        <label for="dataUser">Database Username:</label>
+        <input type="text" id="dataUser" name="dataUser" class="text">
+    </div>
+    <div class="field-group">
+        <label for="dataPass">Database Password:</label>
+        <input type="password" id="dataPass" name="dataPass" class="text">
+    </div>
+    <div class="field-group">
+        <input type="submit" value="Save" class="button">
+    </div>
+</form>
+</body>
+</html>

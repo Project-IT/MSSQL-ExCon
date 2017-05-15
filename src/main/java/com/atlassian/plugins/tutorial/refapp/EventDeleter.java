@@ -34,7 +34,7 @@ public class EventDeleter {
     public void delete(String user, Connection myConn) throws SQLException {
 
         //prepare for inputting into ArrayList
-        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluencebu.outlookuidtable WHERE Username='" + user+"'");
+        PreparedStatement ps = myConn.prepareStatement("SELECT OutlookUID FROM confluence.outlookuidtable WHERE Username='" + user+"'");
         ResultSet rs = ps.executeQuery();
 
         //declaration
@@ -65,17 +65,17 @@ public class EventDeleter {
             for (Object ID : tableIDs) {
 
                 //Prepare ResultSet from SQL for comparision
-                PreparedStatement ps2 = myConn.prepareStatement("SELECT ConfluenceUID FROM confluencebu.outlookuidtable WHERE OutlookUID='" + ID + "'");
+                PreparedStatement ps2 = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + ID + "'");
                 ResultSet rs2 = ps2.executeQuery();
 
                 if (rs2.next()) {
 
                     //Compare RS to ArrayList - then - Delete from Confluence Event table
-                    String calendarDel = "DELETE FROM confluencebu.ao_950dc3_tc_events WHERE VEVENT_UID='" + rs2.getString("ConfluenceUID") + "'";
+                    String calendarDel = "DELETE FROM confluence.ao_950dc3_tc_events WHERE VEVENT_UID='" + rs2.getString("ConfluenceUID") + "'";
                     stmt.executeUpdate(calendarDel);
 
                     //Compare to ArrayList - then - Delete from OutlookUID table
-                    String sqlDel = "DELETE FROM confluencebu.outlookuidtable WHERE OutlookUID='" + ID + "'";
+                    String sqlDel = "DELETE FROM confluence.outlookuidtable WHERE OutlookUID='" + ID + "'";
                     stmt.executeUpdate(sqlDel);
                 }
             }

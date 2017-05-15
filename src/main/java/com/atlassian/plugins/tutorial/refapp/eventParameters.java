@@ -5,7 +5,7 @@ import java.sql.*;
  * Created by ExCon Group on 2017-04-28.
  */
 public class eventParameters extends dbParameters{
-    protected final String TABLENAME="confluencebu.ao_950dc3_tc_events";
+    protected final String TABLENAME="confluence.ao_950dc3_tc_events";
 
     protected String updateQuery="UPDATE " + TABLENAME +
             " SET ALL_DAY=?, CREATED = ?, DESCRIPTION = ?, END = ?, LAST_MODIFIED = ?, LOCATION = ?, ORGANISER = ?, RECURRENCE_ID_TIMESTAMP = ?, RECURRENCE_RULE = ?, REMINDER_SETTING_ID = ?, SEQUENCE = ?, START = ?, SUB_CALENDAR_ID = ?, SUMMARY = ?, URL = ?, UTC_END = ?, UTC_START = ? WHERE VEVENT_UID = ?";
