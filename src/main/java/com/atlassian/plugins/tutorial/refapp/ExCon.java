@@ -28,7 +28,7 @@ import java.util.Date;
 
 public class ExCon {
 
-    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser) throws ServletException {
+    public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser, int months) throws ServletException {
 
         String fromOutlook = "";
         String vacationID;
@@ -51,7 +51,7 @@ public class ExCon {
         }
 
         // Sets the Date Format
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         // Sets start Date
         Date startDate = null;
@@ -67,7 +67,14 @@ public class ExCon {
             endDate = formatter.parse("2017-05-30 13:00:00");
         } catch (ParseException e) {
             e.printStackTrace();
-        }
+        }*/
+
+        /**
+         * Creates a Date 2 years from now
+         */
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.MONTH, months);
+        Date endDate = cal.getTime();
 
         // Defines which Calendar Folder to use
         CalendarFolder cf = null;
@@ -80,7 +87,7 @@ public class ExCon {
         // Makes an array of Calendar Results
         FindItemsResults<Appointment> findResults = null;
         try {
-            findResults = cf.findAppointments(new CalendarView(startDate, endDate));
+            findResults = cf.findAppointments(new CalendarView(new Date(), endDate));
         } catch (Exception e) {
             e.printStackTrace();
         }
