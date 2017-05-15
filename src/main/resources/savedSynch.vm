@@ -10,7 +10,7 @@
         <input type="button" value="Return" style="width:120px;height:40px;" class="button" id="myButton">
         <script type="text/javascript">
             document.getElementById("myButton").onclick = function () {
-                location.href = "http://localhost:8090/#all-updates";
+                location.href = "/#all-updates";
             };
         </script>
     </div>
