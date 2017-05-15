@@ -35,6 +35,7 @@
         <link linkId="xproduct-admin-link">/plugins/servlet/config</link>
     </web-item>
 
+    <!--The necessary web-item for the button on the Confluence Dashboard-->
     <web-item key="out-synch" name="Outlook Synch" section="system.header/left" weight="60">
         <description>Outlook Synchronization</description>
         <label key="Outlook Synch" />

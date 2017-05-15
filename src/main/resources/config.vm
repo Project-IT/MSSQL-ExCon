@@ -1,3 +1,12 @@
+<!--Configuration page for the plugin.
+
+There is a total of 4 parameters:
+
+    1. Database IP       <-- Necessary such that the plugin can access the external database
+    2. Database Username <-- Necessary to authorize credentials
+    3. Database Password <-- Necessary to authorize credentials
+    4. Datespan          <-- Sets the datespawn from the current date till the desired month (max 24 months)
+-->
 <html>
 <head>
     <title>Plugin Configuration</title>

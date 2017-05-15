@@ -30,11 +30,7 @@ public class ExCon {
 
     public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser, int months) throws ServletException {
 
-        String fromOutlook = "";
-        String vacationID;
-
-        ConfluenceUser currentUser;
-        currentUser = AuthenticatedUserThreadLocal.get();
+        ConfluenceUser currentUser = AuthenticatedUserThreadLocal.get();
 
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
@@ -50,28 +46,6 @@ public class ExCon {
             e.printStackTrace();
         }
 
-        // Sets the Date Format
-        /*SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
-        // Sets start Date
-        Date startDate = null;
-        try {
-            startDate = formatter.parse("2017-04-10 12:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        // Sets end Date
-        Date endDate = null;
-        try {
-            endDate = formatter.parse("2017-05-30 13:00:00");
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }*/
-
-        /**
-         * Creates a Date 2 years from now
-         */
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, months);
         Date endDate = cal.getTime();
@@ -195,17 +169,9 @@ public class ExCon {
                 //Sequence
                 ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
-                //SUB_CALENDAR_ID
-                //this is for different vacation event type
-                if (appt.getCategories().toString().equals("Orange category,")) // for Vacation events
-                {
-                    vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Orange");
-                } else {
-                    vacationID = SubCalendarID(ParentID(calendarName, myConn), myConn, "Blue");
-                }
+                ep.setSub_calendar_id(SubCalendarID(ParentID(calendarName, myConn)));
 
-                ep.setSub_calendar_id(vacationID);
-                ep.setSummary(fromOutlook);                //SUMMARY
+                ep.setSummary(appt.getSubject());                //SUMMARY
                 ep.setUrl(appt.getMeetingWorkspaceUrl());           //URL
 
                 //Subject
@@ -251,7 +217,9 @@ public class ExCon {
     }
 
 
-    // Simple error checker for the URI
+    /**
+     * Simple error checker for the URI
+     */
     static class RedirectionUrlCallback implements IAutodiscoverRedirectionUrl {
         public boolean autodiscoverRedirectionUrlValidationCallback(
                 String redirectionUrl) {
@@ -260,10 +228,13 @@ public class ExCon {
 
     }
 
-    /* Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
-       time -> time & date of the event
-       localtime -> Determines whether or not the time is to be local or UTC
-    */
+    /**
+     * Converts the time acquired from the specific Outlook event to the compatible Unix Epoch time format.
+     *
+     *  @param time -> time & date of the event
+     *  @param localtime -> Determines whether or not the time is to be local or UTC
+     *  @return time -> time in UNIX EPOCH format
+     */
     private static String ConvertTime(Date time, boolean localtime) throws Exception {
 
         Date date = null;
@@ -285,28 +256,6 @@ public class ExCon {
             }
             return String.valueOf(date.getTime());
         }
-    }
-
-    private String SubCalendarID(String parentID, Connection myConn, String color) throws SQLException {
-        String resultID = "";
-        ResultSet myRs;
-        //Create a statement
-        Statement myStm = myConn.createStatement();
-        // Get the child-ID of the parentID to corresponding color
-        if (color.equals("Orange")) {
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-orange';");
-            if (myRs.next()) {
-                resultID = myRs.getString("ID");
-                return resultID;
-            }
-        } else {
-            myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
-            if (myRs.next()) {
-                resultID = myRs.getString("ID");
-                return resultID;
-            }
-        }
-        return resultID;
     }
 
     /**
