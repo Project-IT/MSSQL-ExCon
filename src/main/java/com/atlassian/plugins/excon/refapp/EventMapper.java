@@ -102,9 +102,7 @@ public class EventMapper {
             return true;
 
         } else { // user is not known, map uniquely to database
-            PreparedStatement nameMapStatement = myConn.prepareStatement("INSERT INTO [confluence].[dbo].[OutlookUIDtable]" + "(Username)" + "VALUES ('" + user + "')");
-            nameMapStatement.execute();
-
+            
             PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet userMapRS = newUserMap.executeQuery();
             // Like before insert new events into Calendar under new username
