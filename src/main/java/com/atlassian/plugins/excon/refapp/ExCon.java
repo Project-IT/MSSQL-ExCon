@@ -1,4 +1,4 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 import microsoft.exchange.webservices.data.autodiscover.IAutodiscoverRedirectionUrl;
 import microsoft.exchange.webservices.data.core.ExchangeService;
@@ -19,7 +19,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import javax.servlet.ServletException;
-import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -27,29 +26,25 @@ import java.sql.*;
 import java.util.Date;
 
 /**
- * Created by ExCon Group 2017-0x-xx
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * @param username     <- Retrieved from MyPluginServlet that gets it from Admin.vm
+ * @param password     <- Retrieved from MyPluginServlet that gets it from Admin.vm
+ * @param calendarName <- Retrieved from MyPluginServlet that gets it from Admin.vm
+ * @throws ServletException <- Throws appropriate exception
+ * <p>
+ * The execute function takes the above mentioned parameters, handles the login to Outlook
+ * and then sends the information retrieved from outlook into the EventParameter class.
+ * That - in turn - handles the SQL query needed for inserting into the event table.
+ * The biggest part of the execute function is the for-loop getting each event from outlook
+ * It was benchmarked to run at ~nlog(n) time. Refer to our documentation for more details.
+ * <p>
+ * Within execute, there are a number of function calls. Some are separate classes while
+ * others are nested below. Refer to function comments for more details.
  */
+
 public class ExCon {
-
-
-    /**
-     * Written by ExCon Group from KTH Sweden - Code is available freely at our github
-     * under the GNU GPL.
-     *
-     * @param username     <- Retrieved from MyPluginServlet that gets it from Admin.vm
-     * @param password     <- Retrieved from MyPluginServlet that gets it from Admin.vm
-     * @param calendarName <- Retrieved from MyPluginServlet that gets it from Admin.vm
-     * @throws ServletException <- Throws appropriate exception
-     *                          <p>
-     *                          The execute function takes the above mentioned parameters, handles the login to Outlook
-     *                          and then sends the information retrieved from outlook into the EventParameter class.
-     *                          That - in turn - handles the SQL query needed for inserting into the event table.
-     *                          The biggest part of the execute function is the for-loop getting each event from outlook
-     *                          It was benchmarked to run at ~nlog(n) time. Refer to our documentation for more details.
-     *                          <p>
-     *                          Within execute, there are a number of function calls. Some are separate classes while
-     *                          others are nested below. Refer to function comments for more details.
-     */
 
 
     public void execute(String username, String password, String calendarName, String url, String IPpass, String IPuser, int months) throws ServletException {
@@ -58,8 +53,8 @@ public class ExCon {
         String globalCalendar = "";
         String calID = null;
 
-        ConfluenceUser currentUser;
-        currentUser = AuthenticatedUserThreadLocal.get();
+        //Acquires the current User
+        ConfluenceUser currentUser = AuthenticatedUserThreadLocal.get();
 
         // Specifies Exchange version, (any newer works as well)
         ExchangeService service = new ExchangeService(ExchangeVersion.Exchange2010_SP2);
@@ -75,9 +70,7 @@ public class ExCon {
             e.printStackTrace();
         }
 
-        /**
-         * Creates a Date up to 2 years from now
-         */
+        //Creates a Date up to 2 years from now
         Calendar cal = Calendar.getInstance();
         cal.add(Calendar.MONTH, months);
         Date endDate = cal.getTime();
@@ -209,7 +202,7 @@ public class ExCon {
                     ep.setSequence(appt.getAppointmentSequenceNumber().toString());
 
                     //SubCalID
-                    calID = SubCalendarID(ParentID(calendarName, myConn), myConn);
+                    calID = ParentID(calendarName, myConn);
                     ep.setSub_calendar_id(calID);
                     globalCalendar = calID;
 
@@ -315,38 +308,10 @@ public class ExCon {
         }
     }
 
-
     /**
-     * SubCalendar is a different event types of a calendar as Event, Birthday, Travel  etc ..
-     * SubCalendarID method take parentID and return SubCalendarID according to a given color by sending SQL query
-     *
-     * @param parentID <- ParentId of the subCalendar
-     * @param myConn   <- Used to send SQL query
-     * @param color    <- To specify the required SubCalendarID
-     * @return resultID <- SubCalendarID
-     * @throws SQLException
-     */
-    private String SubCalendarID(String parentID, Connection myConn) throws SQLException {
-
-        String resultID = "";
-        ResultSet myRs;
-        //Create a statement
-        Statement myStm = myConn.createStatement();
-
-        // SQL query that return  ID of given parentID and blue color
-        myRs = myStm.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + parentID + "' AND COLOUR='subcalendar-blue';");
-        if (myRs.next()) {
-            resultID = myRs.getString("ID");
-            return resultID;
-        }
-        return resultID;
-    }
-
-    /**
-
      * @param CalendarName <-- The desired calendar name
      * @param myConn       <-- the connection to SQL server
-     * @return ID          <-- returns the desired Subcalendar_ID
+     * @return resultID          <-- returns the desired Subcalendar_ID
      * <p>
      * ParentID is a function that makes a SQL query which retrieves a list with all
      * PARENT IDs and then retrieves the desired one based on CalendarName
@@ -354,7 +319,7 @@ public class ExCon {
     private static String ParentID(String CalendarName, Connection myConn) throws Exception {
 
         Statement State = myConn.createStatement();
-        String ID = null;
+        String ID = null, resultID = null;
         ResultSet Res = State.executeQuery
                 ("SELECT tc.NAME as calendar_name, tc.ID as ID FROM AO_950DC3_TC_SUBCALS tc JOIN user_mapping um ON um.user_key = tc.CREATOR WHERE tc.SPACE_KEY IS NOT NULL;");
 
@@ -363,6 +328,12 @@ public class ExCon {
                 ID = Res.getString("ID");
             }
         }
-        return ID;
+        Res.close();
+        ResultSet myRs = State.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + ID + "' AND COLOUR='subcalendar-blue';");
+        if (myRs.next()) {
+            resultID = myRs.getString("ID");
+
+        }
+        return resultID;
     }
 }

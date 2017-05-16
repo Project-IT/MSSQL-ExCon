@@ -1,4 +1,4 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -7,8 +7,12 @@ import java.util.TimeZone;
 import java.util.Date;
 
 /**
- * Created by ExCon Group on 2017-05-05.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * Created on 2017-05-05.
  */
+
 public class EventMapper {
 
     //global identifier for table name
@@ -76,26 +80,29 @@ public class EventMapper {
         InviteesInserter Ii = new InviteesInserter();
         LastEventIdFinder Leif = new LastEventIdFinder();
 
-
-        if (userRs.next()) { //user is known, update their events
+        //user is known, update their events
+        if (userRs.next()) {
 
             preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet myRs = preparedStatement.executeQuery();
 
-            if (!myRs.next()) { // new event
+            // new event
+            if (!myRs.next()) {
                 String sqlInsert = "INSERT INTO " + tableName + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
                 Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
                 return false;
-            } else { //old event
+            //old event
+            } else {
                 ep.setVevent_uid(myRs.getString("ConfluenceUID"));
                 eu.update(ep, myConn);
             }
             return true;
 
-        } else { // user is not known, map uniquely to database
+        // user is not known, map uniquely to database
+        } else {
 
             PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet userMapRS = newUserMap.executeQuery();

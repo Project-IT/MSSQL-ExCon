@@ -1,42 +1,47 @@
-<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+<!-- Written by ExCon Group from KTH Sweden - Code is available freely at our github under the GNU GPL.-->
+<atlassian-plugin key="${atlassian.plugin.key}" name="ExCon Plugin" plugins-version="2">
     <plugin-info>
-        <description>${project.description}</description>
+        <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
         <version>${project.version}</version>
-        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <vendor name="ExCon Group" url="https://github.com/Project-IT/ExCon" />
         <param name="plugin-icon">images/pluginIcon.png</param>
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
     <!-- add our i18n resource -->
-    <resource type="i18n" name="i18n" location="AdminUI"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="AdminUI-resources" name="AdminUI Web Resources">
+    <resource type="i18n" name="i18n" location="ExCon"/>
+
+    <web-resource key="ExCon-resources" name="ExCon Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
+
         <resource type="download" name="AdminUI.css" location="/css/AdminUI.css"/>
         <resource type="download" name="AdminUI.js" location="/js/AdminUI.js"/>
         <resource type="download" name="images/" location="/images"/>
 
-        <context>AdminUI</context>
+        <context>ExCon</context>
     </web-resource>
 
-    <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.MyPluginServlet" key="test">
-        <url-pattern>/test</url-pattern>
+    <!-- Used to declare our two servlet pages -->
+    <servlet name="ExCon" class="com.atlassian.plugins.excon.refapp.MyPluginServlet" key="login">
+        <url-pattern>/login</url-pattern>
     </servlet>
 
-    <servlet name="adminUI" class="com.atlassian.plugins.tutorial.refapp.AdminConfig" key="config">
+    <servlet name="ExCon" class="com.atlassian.plugins.excon.refapp.AdminConfig" key="config">
         <url-pattern>/config</url-pattern>
     </servlet>
-    <web-item key="conf-menu-item" name="Plugin Configuration" section="system.admin/configuration" weight="10">
-        <description>Link to xproduct-admin page.</description>
-        <label key="Plugin Configuration" />
-        <link linkId="xproduct-admin-link">/plugins/servlet/config</link>
+
+    <!-- Adds a tab in the Administration field -->
+    <web-item key="out-config" name="ExCon Sync Configuration" section="system.admin/configuration" weight="10">
+        <description>Link to configuration page.</description>
+        <label key="ExCon Sync Configuration" />
+        <link linkId="excon-sync-plugin">/plugins/servlet/config</link>
     </web-item>
+
+
     <!--The necessary web-item for the button on the Confluence Dashboard-->
-    <web-item key="out-synch" name="Outlook Synch" section="system.header/left" weight="60">
-        <description>Outlook Synchronization</description>
-        <label key="Outlook Synch" />
-        <link linkId="sync_page">/plugins/servlet/test</link>
+    <web-item key="out-login" name="Outlook Sync" section="system.header/left" weight="60">
+        <description>Link to synchronization page.</description>
+        <label key="Outlook Sync" />
+        <link linkId="sync_page">/plugins/servlet/login</link>
     </web-item>
 </atlassian-plugin>

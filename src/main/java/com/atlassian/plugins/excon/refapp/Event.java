@@ -1,6 +1,9 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 /**
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
  * Deprecated Class
  */
 public class Event {

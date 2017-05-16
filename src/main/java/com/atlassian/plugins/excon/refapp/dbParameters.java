@@ -1,10 +1,13 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 
 /**
- * Created by ExCon Group on 2017-04-29.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * Created on 2017-04-29.
  */
 public abstract class dbParameters {
 

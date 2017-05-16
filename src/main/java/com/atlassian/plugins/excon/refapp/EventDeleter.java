@@ -1,9 +1,13 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 import java.sql.*;
 import java.util.ArrayList;
 
 /**
- * Created by ExCon Group on 2017-05-08.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * Created on 2017-05-08.
+ *
  */
 public class EventDeleter {
 

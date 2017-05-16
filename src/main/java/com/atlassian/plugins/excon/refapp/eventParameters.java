@@ -1,9 +1,10 @@
-package com.atlassian.plugins.tutorial.refapp;
-
-import java.sql.*;
+package com.atlassian.plugins.excon.refapp;
 
 /**
- * Created by ExCon Group on 2017-04-28.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * Created by on 2017-04-28.
  */
 public class eventParameters extends dbParameters {
     protected final String TABLENAME = "confluence.ao_950dc3_tc_events";
