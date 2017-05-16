@@ -1,0 +1,8 @@
+<!--Simple confirmation page for the plugin configuration page-->
+<html>
+<head>
+    <title>Configurations Saved!</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body></body>
+</html>

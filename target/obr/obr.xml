@@ -1,0 +1,192 @@
+<repository lastmodified='20170516114124.920'>
+  <resource id='com.atlassian.plugins.excon.refapp.ExCon/1.0.0' symbolicname='com.atlassian.plugins.excon.refapp.ExCon' presentationname='ExCon' uri='ExCon-1.0.jar' version='1.0.0'>
+    <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
+    <size>6004491</size>
+    <documentation>https://tcomkproj2017.wixsite.com/project</documentation>
+    <capability name='bundle'>
+      <p n='symbolicname' v='com.atlassian.plugins.excon.refapp.ExCon'/>
+      <p n='presentationname' v='ExCon'/>
+      <p n='version' t='version' v='1.0.0'/>
+      <p n='manifestversion' v='2'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.atlassian.plugins.tutorial.refapp.api'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.context))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.context;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.service.exporter.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.service.exporter.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.service.importer.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.service.importer.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.context))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.context;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.exporter))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.exporter;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.exporter.support))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.exporter.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.importer.support))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.importer.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.confluence.user))' extend='false' multiple='false' optional='true'>Import package com.atlassian.confluence.user;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.plugin.osgi.factory))' extend='false' multiple='false' optional='true'>Import package com.atlassian.plugin.osgi.factory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.auth))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.auth;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.pluginsettings))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.pluginsettings;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.user))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.user;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.templaterenderer))' extend='false' multiple='false' optional='true'>Import package com.atlassian.templaterenderer;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.google.common.base))' extend='false' multiple='false' optional='true'>Import package com.google.common.base;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.google.common.collect))' extend='false' multiple='false' optional='true'>Import package com.google.common.collect;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.mchange.v2.c3p0))' extend='false' multiple='false' optional='true'>Import package com.mchange.v2.c3p0;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar.trex))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar.trex;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.trex.ng))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.trex.ng;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.util))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.util))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier.regexp))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier.regexp;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier.regexp.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier.regexp.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.annotation))' extend='false' multiple='false' optional='true'>Import package javax.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.crypto))' extend='false' multiple='false' optional='true'>Import package javax.crypto;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.crypto.spec))' extend='false' multiple='false' optional='true'>Import package javax.crypto.spec;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.inject))' extend='false' multiple='false' optional='true'>Import package javax.inject;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming))' extend='false' multiple='false' optional='true'>Import package javax.naming;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.directory))' extend='false' multiple='false' optional='true'>Import package javax.naming.directory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.ldap))' extend='false' multiple='false' optional='true'>Import package javax.naming.ldap;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.spi))' extend='false' multiple='false' optional='true'>Import package javax.naming.spi;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.net))' extend='false' multiple='false' optional='true'>Import package javax.net;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.net.ssl))' extend='false' multiple='false' optional='true'>Import package javax.net.ssl;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.security.auth.x500))' extend='false' multiple='false' optional='true'>Import package javax.security.auth.x500;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.servlet))' extend='false' multiple='false' optional='true'>Import package javax.servlet;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.servlet.http))' extend='false' multiple='false' optional='true'>Import package javax.servlet.http;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.sql))' extend='false' multiple='false' optional='true'>Import package javax.sql;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.transaction.xa))' extend='false' multiple='false' optional='true'>Import package javax.transaction.xa;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.bind))' extend='false' multiple='false' optional='true'>Import package javax.xml.bind;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.namespace))' extend='false' multiple='false' optional='true'>Import package javax.xml.namespace;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.parsers))' extend='false' multiple='false' optional='true'>Import package javax.xml.parsers;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.dom))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.dom;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.sax))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.sax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.stax))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.stax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.stream))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.stream;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.validation))' extend='false' multiple='false' optional='true'>Import package javax.xml.validation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.ws.http))' extend='false' multiple='false' optional='true'>Import package javax.xml.ws.http;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=jcifs))' extend='false' multiple='false' optional='true'>Import package jcifs;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=jcifs.smb))' extend='false' multiple='false' optional='true'>Import package jcifs.smb;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.avalon.framework.logger))' extend='false' multiple='false' optional='true'>Import package org.apache.avalon.framework.logger;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.commons.lang))' extend='false' multiple='false' optional='true'>Import package org.apache.commons.lang;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.log))' extend='false' multiple='false' optional='true'>Import package org.apache.log;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.log4j))' extend='false' multiple='false' optional='true'>Import package org.apache.log4j;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.ietf.jgss))' extend='false' multiple='false' optional='true'>Import package org.ietf.jgss;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.jboss.resource.adapter.jdbc))' extend='false' multiple='false' optional='true'>Import package org.jboss.resource.adapter.jdbc;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.jboss.resource.adapter.jdbc.vendor))' extend='false' multiple='false' optional='true'>Import package org.jboss.resource.adapter.jdbc.vendor;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.joda.convert))' extend='false' multiple='false' optional='true'>Import package org.joda.convert;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.osgi.framework))' extend='false' multiple='false' optional='true'>Import package org.osgi.framework;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.relaxng.datatype))' extend='false' multiple='false' optional='true'>Import package org.relaxng.datatype;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.aop.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.aop.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.annotation))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.config))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.config;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.parsing))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.parsing;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.xml))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.xml;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.context.annotation))' extend='false' multiple='false' optional='true'>Import package org.springframework.context.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.core.io))' extend='false' multiple='false' optional='true'>Import package org.springframework.core.io;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.stereotype))' extend='false' multiple='false' optional='true'>Import package org.springframework.stereotype;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.util))' extend='false' multiple='false' optional='true'>Import package org.springframework.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.w3c.dom))' extend='false' multiple='false' optional='true'>Import package org.w3c.dom;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax))' extend='false' multiple='false' optional='true'>Import package org.xml.sax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax.ext))' extend='false' multiple='false' optional='true'>Import package org.xml.sax.ext;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax.helpers))' extend='false' multiple='false' optional='true'>Import package org.xml.sax.helpers;resolution:=optional</require>
+  </resource>
+  <resource id='com.atlassian.plugins.tutorial.refapp.AdminUI/1.0.0.SNAPSHOT' symbolicname='com.atlassian.plugins.tutorial.refapp.AdminUI' presentationname='ExCon' uri='AdminUI-1.0-SNAPSHOT.jar' version='1.0.0.SNAPSHOT'>
+    <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
+    <size>6004572</size>
+    <documentation>https://tcomkproj2017.wixsite.com/project</documentation>
+    <capability name='bundle'>
+      <p n='symbolicname' v='com.atlassian.plugins.tutorial.refapp.AdminUI'/>
+      <p n='presentationname' v='ExCon'/>
+      <p n='version' t='version' v='1.0.0.SNAPSHOT'/>
+      <p n='manifestversion' v='2'/>
+    </capability>
+    <capability name='package'>
+      <p n='package' v='com.atlassian.plugins.tutorial.refapp.api'/>
+      <p n='version' t='version' v='1.0.0'/>
+    </capability>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.context))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.context;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.service.exporter.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.service.exporter.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.osgi.service.importer.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.osgi.service.importer.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.context))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.context;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.exporter))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.exporter;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.exporter.support))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.exporter.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.eclipse.gemini.blueprint.service.importer.support))' extend='false' multiple='false' optional='true'>Import package org.eclipse.gemini.blueprint.service.importer.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.confluence.user))' extend='false' multiple='false' optional='true'>Import package com.atlassian.confluence.user;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.plugin.osgi.factory))' extend='false' multiple='false' optional='true'>Import package com.atlassian.plugin.osgi.factory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.auth))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.auth;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.pluginsettings))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.pluginsettings;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.sal.api.user))' extend='false' multiple='false' optional='true'>Import package com.atlassian.sal.api.user;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.atlassian.templaterenderer))' extend='false' multiple='false' optional='true'>Import package com.atlassian.templaterenderer;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.google.common.base))' extend='false' multiple='false' optional='true'>Import package com.google.common.base;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.google.common.collect))' extend='false' multiple='false' optional='true'>Import package com.google.common.collect;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.mchange.v2.c3p0))' extend='false' multiple='false' optional='true'>Import package com.mchange.v2.c3p0;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar.trex))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar.trex;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.grammar.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.grammar.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.trex.ng))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.trex.ng;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.util))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.reader.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.reader.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.util))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier.regexp))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier.regexp;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=com.sun.msv.verifier.regexp.xmlschema))' extend='false' multiple='false' optional='true'>Import package com.sun.msv.verifier.regexp.xmlschema;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.annotation))' extend='false' multiple='false' optional='true'>Import package javax.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.crypto))' extend='false' multiple='false' optional='true'>Import package javax.crypto;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.crypto.spec))' extend='false' multiple='false' optional='true'>Import package javax.crypto.spec;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.inject))' extend='false' multiple='false' optional='true'>Import package javax.inject;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming))' extend='false' multiple='false' optional='true'>Import package javax.naming;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.directory))' extend='false' multiple='false' optional='true'>Import package javax.naming.directory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.ldap))' extend='false' multiple='false' optional='true'>Import package javax.naming.ldap;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.naming.spi))' extend='false' multiple='false' optional='true'>Import package javax.naming.spi;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.net))' extend='false' multiple='false' optional='true'>Import package javax.net;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.net.ssl))' extend='false' multiple='false' optional='true'>Import package javax.net.ssl;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.security.auth.x500))' extend='false' multiple='false' optional='true'>Import package javax.security.auth.x500;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.servlet))' extend='false' multiple='false' optional='true'>Import package javax.servlet;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.servlet.http))' extend='false' multiple='false' optional='true'>Import package javax.servlet.http;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.sql))' extend='false' multiple='false' optional='true'>Import package javax.sql;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.transaction.xa))' extend='false' multiple='false' optional='true'>Import package javax.transaction.xa;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.bind))' extend='false' multiple='false' optional='true'>Import package javax.xml.bind;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.namespace))' extend='false' multiple='false' optional='true'>Import package javax.xml.namespace;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.parsers))' extend='false' multiple='false' optional='true'>Import package javax.xml.parsers;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.dom))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.dom;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.sax))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.sax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.stax))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.stax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.transform.stream))' extend='false' multiple='false' optional='true'>Import package javax.xml.transform.stream;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.validation))' extend='false' multiple='false' optional='true'>Import package javax.xml.validation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=javax.xml.ws.http))' extend='false' multiple='false' optional='true'>Import package javax.xml.ws.http;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=jcifs))' extend='false' multiple='false' optional='true'>Import package jcifs;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=jcifs.smb))' extend='false' multiple='false' optional='true'>Import package jcifs.smb;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.avalon.framework.logger))' extend='false' multiple='false' optional='true'>Import package org.apache.avalon.framework.logger;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.commons.lang))' extend='false' multiple='false' optional='true'>Import package org.apache.commons.lang;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.log))' extend='false' multiple='false' optional='true'>Import package org.apache.log;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.apache.log4j))' extend='false' multiple='false' optional='true'>Import package org.apache.log4j;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.ietf.jgss))' extend='false' multiple='false' optional='true'>Import package org.ietf.jgss;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.jboss.resource.adapter.jdbc))' extend='false' multiple='false' optional='true'>Import package org.jboss.resource.adapter.jdbc;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.jboss.resource.adapter.jdbc.vendor))' extend='false' multiple='false' optional='true'>Import package org.jboss.resource.adapter.jdbc.vendor;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.joda.convert))' extend='false' multiple='false' optional='true'>Import package org.joda.convert;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.osgi.framework))' extend='false' multiple='false' optional='true'>Import package org.osgi.framework;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.relaxng.datatype))' extend='false' multiple='false' optional='true'>Import package org.relaxng.datatype;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.aop.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.aop.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.annotation))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.config))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.config;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.parsing))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.parsing;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.support))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.support;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.beans.factory.xml))' extend='false' multiple='false' optional='true'>Import package org.springframework.beans.factory.xml;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.context.annotation))' extend='false' multiple='false' optional='true'>Import package org.springframework.context.annotation;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.core.io))' extend='false' multiple='false' optional='true'>Import package org.springframework.core.io;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.stereotype))' extend='false' multiple='false' optional='true'>Import package org.springframework.stereotype;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.springframework.util))' extend='false' multiple='false' optional='true'>Import package org.springframework.util;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.w3c.dom))' extend='false' multiple='false' optional='true'>Import package org.w3c.dom;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax))' extend='false' multiple='false' optional='true'>Import package org.xml.sax;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax.ext))' extend='false' multiple='false' optional='true'>Import package org.xml.sax.ext;resolution:=optional</require>
+    <require name='package' filter='(&amp;(package=org.xml.sax.helpers))' extend='false' multiple='false' optional='true'>Import package org.xml.sax.helpers;resolution:=optional</require>
+  </resource>
+</repository>

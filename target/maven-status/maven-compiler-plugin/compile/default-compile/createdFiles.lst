@@ -1,0 +1,14 @@
+com\atlassian\plugins\excon\refapp\MyPluginServlet.class
+com\atlassian\plugins\excon\refapp\eventInserter.class
+com\atlassian\plugins\excon\refapp\ExCon.class
+com\atlassian\plugins\excon\refapp\AdminConfig.class
+com\atlassian\plugins\excon\refapp\InviteesInserter.class
+com\atlassian\plugins\excon\refapp\EventMapper.class
+com\atlassian\plugins\excon\refapp\EventVerifier.class
+com\atlassian\plugins\excon\refapp\eventParameters.class
+com\atlassian\plugins\excon\refapp\LastEventIdFinder.class
+com\atlassian\plugins\excon\refapp\EventUpdater.class
+com\atlassian\plugins\excon\refapp\dbParameters.class
+com\atlassian\plugins\excon\refapp\ExCon$RedirectionUrlCallback.class
+com\atlassian\plugins\excon\refapp\Event.class
+com\atlassian\plugins\excon\refapp\EventDeleter.class
