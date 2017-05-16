@@ -1,6 +1,9 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 /**
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
  * Deprecated Class
  */
 public class Event {
@@ -28,7 +31,9 @@ public class Event {
         this.body = body;
     }
 
-    public void addAllDayEvent(String allDay) { this.allDay = allDay; }
+    public void addAllDayEvent(String allDay) {
+        this.allDay = allDay;
+    }
 
     public void addSubject(String subject) {
         this.subject = subject;

@@ -1,7 +1,10 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 /**
- * Created by ExCon Group on 2017-05-01.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ * <p>
+ * Created by on 2017-05-01.
  */
 public class EventVerifier {
     //defensive methods to check the input of the fields
@@ -21,6 +24,7 @@ public class EventVerifier {
 
         return false;
     }
+
 
     public boolean verifyCreated(String created) {
         if (verifyDate(created)) {

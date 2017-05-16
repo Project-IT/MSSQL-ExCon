@@ -1,7 +1,6 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
-import java.util.HashMap;
-import java.util.Map;
+
 import java.io.IOException;
 import java.net.URI;
 
@@ -21,10 +20,18 @@ import com.atlassian.templaterenderer.TemplateRenderer;
 import com.atlassian.sal.api.pluginsettings.PluginSettings;
 import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 
-
+/**
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ *
+ * Most of the code below is retrieved from atlassian
+ *
+ * https://developer.atlassian.com/docs/getting-started/plugin-modules/servlet-plugin-module
+ *
+ */
 @Scanned
 public class AdminConfig extends HttpServlet {
-    private static final String PLUGIN_STORAGE_KEY = "com.atlassian.plugins.tutorial.refapp.adminui";
+    private static final String PLUGIN_STORAGE_KEY = "com.atlassian.plugins.excon.refapp.adminui";
     @ComponentImport
     private final UserManager userManager;
     @ComponentImport
@@ -42,6 +49,11 @@ public class AdminConfig extends HttpServlet {
         this.pluginSettingsFactory = pluginSettingsFactory;
     }
 
+    /**
+     * Handles the GET request when the user clicks on the ExCon Synch Configuration tab.
+     *
+     * Denies whoever that does not have administrative rights
+     */
     @Override
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         String username = userManager.getRemoteUsername(request);
@@ -49,60 +61,50 @@ public class AdminConfig extends HttpServlet {
             redirectToLogin(request, response);
             return;
         }
-    /*    Map<String, Object> context = new HashMap<String, Object>();
-        PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
-        if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".name") == null) {
-            String noName = "Enter a name here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".name", noName);
-        }
-        if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".password") == null) {
-            String noPassword = "Enter an password here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".password", noPassword);
-        }
-        if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID") == null) {
-            String noParentID = "Enter an age here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".ParentID", noParentID);
-        }
-        context.put("name", pluginSettings.get(PLUGIN_STORAGE_KEY + ".name"));
-        context.put("password", pluginSettings.get(PLUGIN_STORAGE_KEY + ".password"));
-        context.put("ParentID", pluginSettings.get(PLUGIN_STORAGE_KEY + ".ParentID"));*/
+
         response.setContentType("text/html;charset=utf-8");
-        templateRenderer.render("config.vm", response.getWriter());
+        templateRenderer.render("configPage.vm", response.getWriter());
 
     }
 
+        /**
+         * Handles the PUT request when the user saves their database credentials.
+         *
+         * Retrieves the input given from the user and stores it permanently until someone uninstalls the plugin or redos the configuration
+         */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
-        PluginSettings pluginSettings=pluginSettingsFactory.createGlobalSettings();
-       /* ExCon exCon = new ExCon();
-        exCon.execute(req.getParameter("name"), req.getParameter("password"), req.getParameter("ParentID"));*/
 
+        PluginSettings pluginSettings = pluginSettingsFactory.createGlobalSettings();
 
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".databaseIP") == null) {
-            String noName = "Enter a database IP here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".databaseIP", noName);
-        }
-        else{
+            String databaseIP = "Enter a database IP here.";
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".databaseIP", databaseIP);
+        } else {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".databaseIP", req.getParameter("databaseIP"));
         }
 
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataPass") == null) {
-            String noPassword = "Enter an database password here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataPass", noPassword);
-        }
-        else{
+            String databasePass = "Enter an database password here.";
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataPass", databasePass);
+        } else {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataPass", req.getParameter("dataPass"));
         }
 
         if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".dataUser") == null) {
-            String noParentID = "Enter an database username here.";
-            pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataUser", noParentID);
-        }
-        else{
+            String databaseUser = "Enter an database username here.";
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataUser", databaseUser);
+        } else {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".dataUser", req.getParameter("dataUser"));
         }
 
-        response.sendRedirect("test");
+        if (pluginSettings.get(PLUGIN_STORAGE_KEY + ".months") == null) {
+            String months = "Enter an database username here.";
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".months", months);
+        } else {
+            pluginSettings.put(PLUGIN_STORAGE_KEY + ".months", req.getParameter("months"));
+        }
+            templateRenderer.render("savedConfig.vm", response.getWriter());
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {

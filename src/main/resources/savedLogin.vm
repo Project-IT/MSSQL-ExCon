@@ -1,0 +1,20 @@
+<!-- Written by ExCon Group from KTH Sweden - Code is available freely at our Github under the GNU GPL.-->
+<!--Simple confirmation page for the plugin synchronization page which includes a button which redirecets the user to the start page using Javascript-->
+<html>
+<head>
+    <title>Synchronization Done!</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+<form id="config" class="aui" action="" method="POST">
+    <div class="field-group">
+        <input type="button" value="Return" style="width:120px;height:40px;" class="button" id="myButton">
+        <script type="text/javascript">
+            document.getElementById("myButton").onclick = function () {
+                location.href = "/#all-updates";
+            };
+        </script>
+    </div>
+</form>
+</body>
+</html>

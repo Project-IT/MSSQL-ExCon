@@ -1,4 +1,4 @@
-package com.atlassian.plugins.tutorial.refapp;
+package com.atlassian.plugins.excon.refapp;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
@@ -7,8 +7,12 @@ import java.util.TimeZone;
 import java.util.Date;
 
 /**
- * Created by ExCon Group on 2017-05-05.
+ * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
+ * under the GNU GPL.
+ * <p>
+ * Created on 2017-05-05.
  */
+
 public class EventMapper {
 
     //global identifier for table name
@@ -26,9 +30,7 @@ public class EventMapper {
 
     public void tableMaker(Connection myConn) throws SQLException {
         Statement stmt = myConn.createStatement();
-        //String sqlCreate = "CREATE TABLE IF NOT EXISTS " + tableName + "(ID INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
-        //String sqlCreate = "CREATE TABLE " + tableName + "(ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
-        String sqlCreate = "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='"+tableName+"' AND xtype='U') CREATE TABLE [confluence].[dbo].["+tableName+"] (ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
+        String sqlCreate = "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='" + tableName + "' AND xtype='U') CREATE TABLE [confluence].[dbo].[" + tableName + "] (ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
         stmt.execute(sqlCreate);
     }
 
@@ -52,7 +54,7 @@ public class EventMapper {
 
     @SuppressWarnings("Duplicates")
     public boolean tableMap(String OutlookUID, String user, Connection myConn,
-                            EventUpdater eu, eventParameters ep) throws SQLException {
+                            EventUpdater eu, eventParameters ep, String globalCalendar) throws SQLException {
 
         // Get current time
         SimpleDateFormat test = new SimpleDateFormat("yyyyMMdd'T'HHmmss'Z--'");
@@ -63,7 +65,7 @@ public class EventMapper {
         // for each event that is in the calendar of Outlook
         Random random = new Random();
         int value = random.nextInt(999999999) + 1000000000;
-        String NewVEVUID = (test.format(date) + String.valueOf(value) + "@130.229.172.50");
+        String NewVEVUID = (test.format(date) + String.valueOf(value) + "@localhost"); //VEVENT UID (after "@" put the IP of the host)
 
         // Prepare for query
         eventInserter ei = new eventInserter();
@@ -71,7 +73,7 @@ public class EventMapper {
         PreparedStatement preparedStatement;
 
         // Check if user is known
-       // PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluence.outlookuidtable WHERE Username='" + user + "'");
+        // PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluence.outlookuidtable WHERE Username='" + user + "'");
         PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM [confluence].[dbo].[OutlookUIDtable] WHERE Username='" + user + "'");
         ResultSet userRs = userStatement.executeQuery();
 
@@ -79,9 +81,10 @@ public class EventMapper {
         InviteesInserter Ii = new InviteesInserter();
         LastEventIdFinder Leif = new LastEventIdFinder();
 
-        if (userRs.next()) { //user is known, update their events
+        //user is known, update their events
+        if (userRs.next()) {
 
-           // preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
+            // preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet myRs = preparedStatement.executeQuery();
 
@@ -92,18 +95,17 @@ public class EventMapper {
                 ei.insert(ep, myConn);
                 Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
                 return false;
-            } else { //old event
+                //old event
+            } else {
                 ep.setVevent_uid(myRs.getString("ConfluenceUID"));
                 eu.update(ep, myConn);
             }
             return true;
 
         } else { // user is not known, map uniquely to database
-           // PreparedStatement nameMapStatement = myConn.prepareStatement("INSERT INTO OutlookUIDTable" + "(Username)" + "VALUES ('" + user + "')");
             PreparedStatement nameMapStatement = myConn.prepareStatement("INSERT INTO [confluence].[dbo].[OutlookUIDtable]" + "(Username)" + "VALUES ('" + user + "')");
             nameMapStatement.execute();
 
-            //PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet userMapRS = newUserMap.executeQuery();
             // Like before insert new events into Calendar under new username
