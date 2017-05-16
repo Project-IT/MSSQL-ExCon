@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.atlassian.sal:sal-api:unknown">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/sal/sal-api/unknown/sal-api-unknown.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/sal/sal-api/unknown/sal-api-unknown-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/atlassian/sal/sal-api/unknown/sal-api-unknown-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

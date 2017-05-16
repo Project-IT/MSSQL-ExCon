@@ -1,0 +1,12 @@
+com/atlassian/plugins/tutorial/refapp/InviteesInserter.class
+com/atlassian/plugins/tutorial/refapp/dbParameters.class
+com/atlassian/plugins/tutorial/refapp/AdminConfig.class
+com/atlassian/plugins/tutorial/refapp/MyPluginServlet.class
+com/atlassian/plugins/tutorial/refapp/eventParameters.class
+com/atlassian/plugins/tutorial/refapp/EventVerifier.class
+com/atlassian/plugins/tutorial/refapp/Event.class
+com/atlassian/plugins/tutorial/refapp/eventInserter.class
+com/atlassian/plugins/tutorial/refapp/EventMapper.class
+com/atlassian/plugins/tutorial/refapp/EventDeleter.class
+com/atlassian/plugins/tutorial/refapp/LastEventIdFinder.class
+com/atlassian/plugins/tutorial/refapp/EventUpdater.class

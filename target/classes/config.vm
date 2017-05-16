@@ -1,0 +1,79 @@
+<!--Configuration page for the plugin.
+
+There is a total of 4 parameters:
+
+    1. Database IP       <-- Necessary such that the plugin can access the external database
+    2. Database Username <-- Necessary to authorize credentials
+    3. Database Password <-- Necessary to authorize credentials
+    4. Datespan          <-- Sets the datespawn from the current date till the desired month (max 24 months)
+-->
+<html>
+<head>
+    <title>Plugin Configuration</title>
+    <meta name="decorator" content="atl.admin">
+</head>
+<body>
+<form id="config" class="aui" action="" method="POST">
+    <div class="field-group">
+        <label for="databaseIP">Database IP:</label>
+        <input type="text" id="databaseIP" name="databaseIP" class="text">
+    </div>
+    <br>
+    <div class="field-group">
+        <label for="dataUser">
+            <nobr>Database Username:</nobr>
+        </label>
+        <input type="text" id="dataUser" name="dataUser" class="text">
+    </div>
+    <br>
+    <div class="field-group">
+        <label for="dataPass">
+            <nobr>Database Password:</nobr>
+        </label>
+        <input type="password" id="dataPass" name="dataPass" class="text">
+    </div>
+    <br>
+    <header>
+        <h3>
+            Synchronization output range
+        </h3>
+    </header>
+    <br>
+    <div class="field-group">
+        <label for="months">
+            <nobr>Number of months:</nobr>
+        </label>
+        <select name="months">
+            <option value="1">1</option>
+            <option value="3">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="19">18</option>
+            <option value="20">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+        </select>
+    </div>
+    <br>
+    <div class="field-group">
+        <input type="submit" value="Save" class="button">
+    </div>
+</form>
+</body>
+</html>
