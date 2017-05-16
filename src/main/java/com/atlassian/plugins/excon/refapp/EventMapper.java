@@ -30,7 +30,7 @@ public class EventMapper {
 
     public void tableMaker(Connection myConn) throws SQLException {
         Statement stmt = myConn.createStatement();
-        String sqlCreate = "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='" + tableName + "' AND xtype='U') CREATE TABLE [confluence].[dbo].[" + tableName + "] (ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255))";
+        String sqlCreate = "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='" + tableName + "' AND xtype='U') CREATE TABLE [confluence].[dbo].[" + tableName + "] (ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255), CalendarID VARCHAR(255))";
         stmt.execute(sqlCreate);
     }
 
@@ -88,7 +88,7 @@ public class EventMapper {
 
             // new event
             if (!myRs.next()) {
-                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[tableName]" + "(OutlookUID, ConfluenceUID, Username)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "')";
+                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[tableName]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
@@ -109,7 +109,7 @@ public class EventMapper {
             ResultSet userMapRS = newUserMap.executeQuery();
             // Like before insert new events into Calendar under new username
             if (!userMapRS.next()) {
-                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[OutlookUIDtable]" + "(OutlookUID, ConfluenceUID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "')";
+                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[OutlookUIDtable]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);

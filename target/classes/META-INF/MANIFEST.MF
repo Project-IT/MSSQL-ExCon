@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
-Atlassian-Build-Date: 2017-05-16T13:33:38+0200
+Atlassian-Build-Date: 2017-05-16T14:12:33+0200
 Atlassian-Plugin-Key: com.atlassian.plugins.excon.refapp.ExCon
-Bnd-LastModified: 1494934426099
+Bnd-LastModified: 1494936761061
 Build-Jdk: 1.8.0_65
 Built-By: jeppe
 Bundle-Description: Plugin that 1-way synchronizes Outlook Exchange to T
