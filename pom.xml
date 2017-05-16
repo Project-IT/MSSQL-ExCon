@@ -5,21 +5,36 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.atlassian.plugins.tutorial.refapp</groupId>
-    <artifactId>AdminUI</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.atlassian.plugins.excon.refapp</groupId>
+    <artifactId>ExCon</artifactId>
+    <version>1.0</version>
 
     <organization>
         <name>ExCon</name>
         <url>https://tcomkproj2017.wixsite.com/project</url>
     </organization>
 
-    <name>AdminUI</name>
-    <description>This is a plugin for syncing the Exchange calendar with the Confluence calendar</description>
+    <name>ExCon</name>
+    <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
     <packaging>atlassian-plugin</packaging>
 
     <dependencies>
 
+
+
+        <!-- https://mvnrepository.com/artifact/net.sourceforge.jtds/jtds -->
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.microsoft.sqlserver/mssql-jdbc -->
+        <dependency>
+            <groupId>net.sourceforge.jtds</groupId>
+            <artifactId>jtds</artifactId>
+            <version>1.3.1</version>
+            <scope>compile</scope>
+        </dependency>
         <dependency>
             <groupId>com.atlassian.confluence</groupId>
             <artifactId>confluence</artifactId>

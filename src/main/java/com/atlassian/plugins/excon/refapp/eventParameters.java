@@ -3,17 +3,17 @@ package com.atlassian.plugins.excon.refapp;
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
- *
+ * <p>
  * Created by on 2017-04-28.
  */
 public class eventParameters extends dbParameters {
-    protected final String TABLENAME = "confluence.ao_950dc3_tc_events";
+    protected final String TABLENAME = "[confluence].[dbo].[AO_950DC3_TC_EVENTS]";
 
     protected String updateQuery = "UPDATE " + TABLENAME +
-            " SET ALL_DAY=?, CREATED = ?, DESCRIPTION = ?, END = ?, LAST_MODIFIED = ?, LOCATION = ?, ORGANISER = ?, RECURRENCE_ID_TIMESTAMP = ?, RECURRENCE_RULE = ?, REMINDER_SETTING_ID = ?, SEQUENCE = ?, START = ?, SUB_CALENDAR_ID = ?, SUMMARY = ?, URL = ?, UTC_END = ?, UTC_START = ? WHERE VEVENT_UID = ?";
+            " SET ALL_DAY=?, CREATED = ?, DESCRIPTION = ?,[END] = ?, LAST_MODIFIED = ?, LOCATION = ?, ORGANISER = ?, RECURRENCE_ID_TIMESTAMP = ?, RECURRENCE_RULE = ?, REMINDER_SETTING_ID = ?, SEQUENCE = ?, START = ?, SUB_CALENDAR_ID = ?, SUMMARY = ?, URL = ?, UTC_END = ?, UTC_START = ? WHERE VEVENT_UID = ?";
 
     protected String insertQuery = "INSERT INTO " + TABLENAME +
-            " (ALL_DAY, CREATED, DESCRIPTION, END, LAST_MODIFIED, LOCATION, ORGANISER, RECURRENCE_ID_TIMESTAMP, RECURRENCE_RULE, REMINDER_SETTING_ID, SEQUENCE, START, SUB_CALENDAR_ID, SUMMARY, URL, UTC_END, UTC_START, VEVENT_UID)" +
+            " ([ALL_DAY], [CREATED], [DESCRIPTION], [END], [LAST_MODIFIED], [LOCATION], [ORGANISER], [RECURRENCE_ID_TIMESTAMP], [RECURRENCE_RULE], [REMINDER_SETTING_ID], [SEQUENCE], [START], [SUB_CALENDAR_ID], [SUMMARY], [URL], [UTC_END], [UTC_START], [VEVENT_UID])" +
             " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     protected String all_day = null;

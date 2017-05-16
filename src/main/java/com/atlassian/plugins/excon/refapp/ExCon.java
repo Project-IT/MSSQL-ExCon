@@ -25,6 +25,7 @@ import java.text.SimpleDateFormat;
 import java.sql.*;
 import java.util.Date;
 
+
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
@@ -105,7 +106,9 @@ public class ExCon {
             ep.setUser(IPuser);
             ep.setPassword(IPpass);
             ep.setdbUrl(url);
+            Class.forName("net.sourceforge.jtds.jdbc.Driver");
             myConn = DriverManager.getConnection(ep.getDbUrl(), ep.getUser(), ep.getPassword());
+
 
             EventMapper em = new EventMapper();
             em.tableMaker(myConn);
@@ -321,7 +324,7 @@ public class ExCon {
         Statement State = myConn.createStatement();
         String ID = null, resultID = null;
         ResultSet Res = State.executeQuery
-                ("SELECT tc.NAME as calendar_name, tc.ID as ID FROM AO_950DC3_TC_SUBCALS tc JOIN user_mapping um ON um.user_key = tc.CREATOR WHERE tc.SPACE_KEY IS NOT NULL;");
+                ("SELECT tc.NAME as calendar_name, tc.ID as ID FROM [confluence].[dbo].[AO_950DC3_TC_SUBCALS] tc JOIN [confluence].[dbo].[user_mapping] um ON um.user_key = tc.CREATOR WHERE tc.SPACE_KEY IS NOT NULL;");
 
         while (Res.next()) {
             if (Res.getString("calendar_name").equals(CalendarName)) {
@@ -329,7 +332,7 @@ public class ExCon {
             }
         }
         Res.close();
-        ResultSet myRs = State.executeQuery("SELECT ID FROM confluence.ao_950dc3_tc_subcals WHERE PARENT_ID= '" + ID + "' AND COLOUR='subcalendar-blue';");
+        ResultSet myRs = State.executeQuery("SELECT ID FROM [confluence].[dbo].[AO_950DC3_TC_SUBCALS] WHERE PARENT_ID= '" + ID + "' AND COLOUR='subcalendar-blue';");
         if (myRs.next()) {
             resultID = myRs.getString("ID");
 

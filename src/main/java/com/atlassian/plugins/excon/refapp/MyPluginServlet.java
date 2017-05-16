@@ -22,11 +22,10 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
- *
+ * <p>
  * Most of the code below is retrieved from atlassian
- *
+ * <p>
  * https://developer.atlassian.com/docs/getting-started/plugin-modules/servlet-plugin-module
- *
  */
 @Scanned
 public class MyPluginServlet extends HttpServlet {
@@ -50,7 +49,7 @@ public class MyPluginServlet extends HttpServlet {
 
     /**
      * Handles the GET request when the user clicks on the button on top of the dashboard.
-     *
+     * <p>
      * Redirects to loginPage where the user enter their credentials
      */
     @Override
@@ -62,7 +61,7 @@ public class MyPluginServlet extends HttpServlet {
 
     /**
      * Handles the PUT request when the user has submitted their credentials on loginPage.
-     *
+     * <p>
      * Retrieves the database credentials and forwards them & login credentials to the main class ExCon which performs the synch
      */
     @Override
