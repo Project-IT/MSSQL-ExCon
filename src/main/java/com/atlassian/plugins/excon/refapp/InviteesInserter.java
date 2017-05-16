@@ -12,7 +12,8 @@ import java.sql.PreparedStatement;
 public class InviteesInserter {
 
     //declaration of database table name
-    protected final String TABLENAME = "[confluence].[dbo].[AO_950DC3_TC_EVENTS_INVITEES]";
+    protected final String TABLENAME = "confluence.ao_950dc3_tc_events_invitees";
+
     //preparing for SQL query
     protected String insertQuery = "INSERT INTO " + TABLENAME +
             " (EVENT_ID, INVITEE_ID)" +

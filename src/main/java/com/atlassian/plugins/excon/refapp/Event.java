@@ -3,7 +3,7 @@ package com.atlassian.plugins.excon.refapp;
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
- *
+ * <p>
  * Deprecated Class
  */
 public class Event {

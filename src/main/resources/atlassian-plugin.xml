@@ -1,7 +1,7 @@
 <!-- Written by ExCon Group from KTH Sweden - Code is available freely at our github under the GNU GPL.-->
 <atlassian-plugin key="${atlassian.plugin.key}" name="ExCon Plugin" plugins-version="2">
     <plugin-info>
-        <description>${project.description}</description>
+        <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
         <version>${project.version}</version>
         <vendor name="ExCon Group" url="https://github.com/Project-IT/ExCon" />
         <param name="plugin-icon">images/pluginIcon.png</param>

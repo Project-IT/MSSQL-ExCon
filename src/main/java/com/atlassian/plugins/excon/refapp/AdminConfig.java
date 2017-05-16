@@ -23,11 +23,10 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
- *
+ * <p>
  * Most of the code below is retrieved from atlassian
- *
+ * <p>
  * https://developer.atlassian.com/docs/getting-started/plugin-modules/servlet-plugin-module
- *
  */
 @Scanned
 public class AdminConfig extends HttpServlet {
@@ -51,7 +50,7 @@ public class AdminConfig extends HttpServlet {
 
     /**
      * Handles the GET request when the user clicks on the ExCon Synch Configuration tab.
-     *
+     * <p>
      * Denies whoever that does not have administrative rights
      */
     @Override
@@ -67,11 +66,11 @@ public class AdminConfig extends HttpServlet {
 
     }
 
-        /**
-         * Handles the PUT request when the user saves their database credentials.
-         *
-         * Retrieves the input given from the user and stores it permanently until someone uninstalls the plugin or redos the configuration
-         */
+    /**
+     * Handles the PUT request when the user saves their database credentials.
+     * <p>
+     * Retrieves the input given from the user and stores it permanently until someone uninstalls the plugin or redos the configuration
+     */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
@@ -104,7 +103,7 @@ public class AdminConfig extends HttpServlet {
         } else {
             pluginSettings.put(PLUGIN_STORAGE_KEY + ".months", req.getParameter("months"));
         }
-            templateRenderer.render("savedConfig.vm", response.getWriter());
+        templateRenderer.render("savedConfig.vm", response.getWriter());
     }
 
     private void redirectToLogin(HttpServletRequest request, HttpServletResponse response) throws IOException {

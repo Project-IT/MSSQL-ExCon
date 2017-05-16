@@ -73,7 +73,6 @@ public class EventMapper {
         PreparedStatement preparedStatement;
 
         // Check if user is known
-        // PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM confluence.outlookuidtable WHERE Username='" + user + "'");
         PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM [confluence].[dbo].[OutlookUIDtable] WHERE Username='" + user + "'");
         ResultSet userRs = userStatement.executeQuery();
 
@@ -84,11 +83,11 @@ public class EventMapper {
         //user is known, update their events
         if (userRs.next()) {
 
-            // preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM confluence.outlookuidtable WHERE OutlookUID='" + OutlookUID + "'");
             preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet myRs = preparedStatement.executeQuery();
 
-            if (!myRs.next()) { // new event
+            // new event
+            if (!myRs.next()) {
                 String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[tableName]" + "(OutlookUID, ConfluenceUID, Username)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);

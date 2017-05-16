@@ -6,17 +6,17 @@ import java.sql.DriverManager;
 /**
  * Written by ExCon Group from KTH Sweden - Code is available freely at our Github
  * under the GNU GPL.
- *
+ * <p>
  * Created on 2017-04-29.
  */
 public abstract class dbParameters {
 
 
     // Declaration of Database parameters
-    protected String DbDriver="jdbc:jtds:sqlserver://";
-    protected String dbUrl=     null;
-    protected String user=      null;
-    protected String password=  null;
+    protected String DbDriver = "jdbc:jtds:sqlserver://";
+    protected String dbUrl = null;
+    protected String user = null;
+    protected String password = null;
 
     public boolean verifyDbParameters() {
         if (dbUrl == null) return false;
