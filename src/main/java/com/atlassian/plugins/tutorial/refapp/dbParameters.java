@@ -8,7 +8,7 @@ import java.sql.DriverManager;
 public abstract class dbParameters {
 
     // Declaration of Database parameters
-    protected String DbDriver="jdbc:mysql://";
+    protected String DbDriver="jdbc:jtds:sqlserver://";
     protected String dbUrl=     null;
     protected String user=      null;
     protected String password=  null;

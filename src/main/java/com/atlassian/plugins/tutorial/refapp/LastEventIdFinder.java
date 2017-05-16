@@ -9,7 +9,7 @@ import java.sql.Statement;
  */
 public class LastEventIdFinder {
 
-    protected final String insertQuery="SELECT MAX(ID) ID FROM confluence.ao_950dc3_tc_events";
+    protected final String insertQuery="SELECT MAX(ID) ID FROM [confluence].[dbo].[AO_950DC3_TC_EVENTS]";
     public int find(Connection myConn)throws SQLException{
         int id=0;
         Statement myStm=myConn.createStatement();
