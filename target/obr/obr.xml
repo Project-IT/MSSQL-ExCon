@@ -1,4 +1,4 @@
-<repository lastmodified='20170516032416.132'>
+<repository lastmodified='20170516073425.695'>
   <resource id='com.atlassian.plugins.excon.refapp.ExCon/1.0.0' symbolicname='com.atlassian.plugins.excon.refapp.ExCon' presentationname='ExCon' uri='ExCon-1.0.jar' version='1.0.0'>
     <description>Plugin that 1-way synchronizes Outlook Exchange to Team Calendar plugin in Confluence</description>
     <size>6006753</size>
