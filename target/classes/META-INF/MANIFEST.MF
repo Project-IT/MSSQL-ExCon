@@ -1,9 +1,9 @@
 Manifest-Version: 1.0
-Atlassian-Build-Date: 2017-05-16T14:12:33+0200
+Atlassian-Build-Date: 2017-05-16T15:24:03+0200
 Atlassian-Plugin-Key: com.atlassian.plugins.excon.refapp.ExCon
-Bnd-LastModified: 1494936761061
-Build-Jdk: 1.8.0_65
-Built-By: jeppe
+Bnd-LastModified: 1494941053496
+Build-Jdk: 1.8.0_112
+Built-By: Shayan
 Bundle-Description: Plugin that 1-way synchronizes Outlook Exchange to T
  eam Calendar plugin in Confluence
 Bundle-DocURL: https://tcomkproj2017.wixsite.com/project

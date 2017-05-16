@@ -88,7 +88,7 @@ public class EventMapper {
 
             // new event
             if (!myRs.next()) {
-                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[tableName]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
+                String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[OutlookUIDtable]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
                 ep.setVevent_uid(NewVEVUID);
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
