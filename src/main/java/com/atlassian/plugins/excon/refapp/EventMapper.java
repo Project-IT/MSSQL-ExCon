@@ -31,7 +31,7 @@ public class EventMapper {
     public void tableMaker(Connection myConn) throws SQLException {
         Statement stmt = myConn.createStatement();
         String sqlCreate = "IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='" + tableName + "' AND xtype='U') CREATE TABLE [confluence].[dbo].[" + tableName + "] (ID INTEGER NOT NULL IDENTITY PRIMARY KEY, OutlookUID VARCHAR(255) , ConfluenceUID VARCHAR(2048), Username VARCHAR(255), CalendarID VARCHAR(255))";
-        stmt.execute(sqlCreate);
+        stmt.execute(sqlCreate);    //Works
     }
 
     /**
@@ -75,7 +75,7 @@ public class EventMapper {
         // Check if user is known
         PreparedStatement userStatement = myConn.prepareStatement("SELECT Username FROM [confluence].[dbo].[OutlookUIDtable] WHERE Username='" + user + "'");
         ResultSet userRs = userStatement.executeQuery();
-
+                                                            //works
         //prepare for adding which user is invited
         InviteesInserter Ii = new InviteesInserter();
         LastEventIdFinder Leif = new LastEventIdFinder();
@@ -85,11 +85,11 @@ public class EventMapper {
 
             preparedStatement = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
             ResultSet myRs = preparedStatement.executeQuery();
-
+                                                             //works
             // new event
             if (!myRs.next()) {
                 String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[OutlookUIDtable]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
-                ep.setVevent_uid(NewVEVUID);
+                ep.setVevent_uid(NewVEVUID);    //works
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
                 Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
@@ -104,11 +104,11 @@ public class EventMapper {
         } else { // user is not known, map uniquely to database
             
             PreparedStatement newUserMap = myConn.prepareStatement("SELECT ConfluenceUID FROM [confluence].[dbo].[OutlookUIDtable] WHERE OutlookUID='" + OutlookUID + "'");
-            ResultSet userMapRS = newUserMap.executeQuery();
+            ResultSet userMapRS = newUserMap.executeQuery();        //Works
             // Like before insert new events into Calendar under new username
             if (!userMapRS.next()) {
                 String sqlInsert = "INSERT INTO " + "[confluence].[dbo].[OutlookUIDtable]" + "(OutlookUID, ConfluenceUID, Username, CalendarID)" + "VALUES ('" + OutlookUID + "', '" + NewVEVUID + "', '" + user + "', '" + globalCalendar + "')";
-                ep.setVevent_uid(NewVEVUID);
+                ep.setVevent_uid(NewVEVUID);        //Works
                 stmt.executeUpdate(sqlInsert);
                 ei.insert(ep, myConn);
                 Ii.insert(Leif.find(myConn), ep.getOrganiser(), myConn);
